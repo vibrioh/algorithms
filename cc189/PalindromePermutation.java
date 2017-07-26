@@ -9,6 +9,7 @@ import java.util.HashMap;
  EXAMPLE
  Input: Tact Coa
  Output: True (permutations: "taco cat", "atco eta", etc.)
+ * The key is limit one odd char number in a palindrome permutation.
  */
 public class PalindromePermutation {
   public static boolean isPalindromePermutation(String str) {
@@ -24,20 +25,28 @@ public class PalindromePermutation {
         map.put(c, 1);
       }
     }
-    int limit = 1;
+    boolean isOne = false;
     for (Integer n : map.values()) {
-      if (n%2 != 0) {
-        limit--;
-        if (limit < 0) {
+      if (n%2 == 1) {
+        if (isOne) {
           return false;
         }
+        isOne = true;
       }
     }
     return true;
   }
 
   public static void main(String[] args) {
-    boolean b = isPalindromePermutation("Tact Coa");
-    System.out.println(b);
+    String[] strings = {"Tact Coa",
+        "Rats live on no evil star",
+        "A man, a plan, a canal, panama",
+        "Lleve",
+        "Tacotac",
+        "asda"};
+    for (String s : strings) {
+      boolean a = isPalindromePermutation(s);
+      System.out.println(s + " :   " + a);
+    }
   }
 }
