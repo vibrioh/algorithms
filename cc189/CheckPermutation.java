@@ -13,6 +13,9 @@ public class CheckPermutation {
 //    char[] charry2 = str2.toCharArray();
 //    Arrays.sort(charry1);
 //    Arrays.sort(charry2);
+    if (str1.length() != str2.length()) {
+      return false;
+    }
     return Arrays.equals(stringToSortedArray(str1), stringToSortedArray(str2));
   }
 
