@@ -1,5 +1,9 @@
 package cc189;
 
+/**
+ * double linked list node
+ */
+
 public class LinkedListNode {
 
   public LinkedListNode next;
