@@ -39,6 +39,12 @@ public class Intersection {
     return null;
   }
 
+  /**
+   * O(m+n), O(1)
+   * @param h1
+   * @param h2
+   * @return
+   */
   static Node intersectO1(Node h1, Node h2) {
 
     if (h1 == null || h2 == null) {
