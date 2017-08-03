@@ -1,4 +1,4 @@
-package cc189;
+package cc189.c1c2;
 
 /**
  * using quick-sort partition method, switch node.data

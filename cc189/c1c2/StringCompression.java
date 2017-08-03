@@ -1,4 +1,4 @@
-package cc189;
+package cc189.c1c2;
 
 /**
  * String Compression: Implement a method to perform basic string compression using the counts

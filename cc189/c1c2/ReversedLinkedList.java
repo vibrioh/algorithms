@@ -1,4 +1,4 @@
-package cc189;
+package cc189.c1c2;
 
 public class ReversedLinkedList {
   static Node newLinkedListReversed(Node head) {

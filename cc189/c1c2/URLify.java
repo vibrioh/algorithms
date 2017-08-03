@@ -1,4 +1,4 @@
-package cc189;
+package cc189.c1c2;
 
 /**
  * Write a method to replace all spaces in a string with '%20'. You may assume that the string

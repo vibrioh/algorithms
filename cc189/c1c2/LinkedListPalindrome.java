@@ -1,6 +1,6 @@
-package cc189;
+package cc189.c1c2;
 
-import static cc189.ReversedLinkedList.newLinkedListReversed;
+import static cc189.c1c2.ReversedLinkedList.newLinkedListReversed;
 
 import java.util.Stack;
 
