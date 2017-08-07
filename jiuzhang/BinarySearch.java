@@ -36,10 +36,10 @@ public class BinarySearch {
 
       } else if (nums[mid] < target) {
         // end = mid -1; works as well
-        end = mid;
+        start = mid;
       } else {
         // start = mid + 1; works as well
-        start = mid;
+        end = mid;
       }
     }
 
