@@ -6,10 +6,8 @@ package lintcode;
  * What is the longest length you can get from the n pieces of wood? Given L & k,
  * return the maximum length of the small pieces.
 
- Notice
-
+ Notice:
  You couldn't cut wood into float length.
-
  If you couldn't get >= k pieces, return 0.
  */
 
