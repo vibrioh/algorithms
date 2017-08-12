@@ -1,8 +1,5 @@
 package corejava;
 
-import java.time.LocalDate;
-import java.util.Random;
-
 /**
  * Created by vibri on 7/15/2017.
  * This program tests the Employee class.
