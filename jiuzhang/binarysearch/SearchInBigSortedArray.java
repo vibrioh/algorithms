@@ -1,4 +1,4 @@
-package lintcode;
+package jiuzhang.binarysearch;
 
 /**
  * 关键在于利用倍增（exponential increase）找到BinarySearch的end

@@ -1,4 +1,4 @@
-package leetcode;
+package jiuzhang.binarysearch;
 
 /**
  * Binary Search (last mid <= result); key is int(2^31 - 1), long(2^64 - 1);

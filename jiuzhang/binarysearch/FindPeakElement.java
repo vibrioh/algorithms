@@ -1,4 +1,4 @@
-package leetcode;
+package jiuzhang.binarysearch;
 
 /**
  * A peak element is an element that is greater than its neighbors.

@@ -1,4 +1,4 @@
-package leetcode;
+package jiuzhang.binarytree;
 
 public class TreeNode {
   // Definition for a binary tree node.

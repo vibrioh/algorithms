@@ -1,4 +1,4 @@
-package lintcode;
+package jiuzhang.binarysearch;
 
 /**
  * Given n pieces of wood with length L[i] (integer array).
