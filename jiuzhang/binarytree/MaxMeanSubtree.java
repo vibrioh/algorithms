@@ -9,55 +9,98 @@ import java.util.Map;
  * 【【【【每次递归都变化的参数需要通过自身return值来传递，在特定情况下才变化的可以保存在全局变量中！！！！！！！！！！！！！】】】】
  */
 public class MaxMeanSubtree {
-  class ResultType {
-    public TreeNode node;
-    public int sum, num, maxSum, maxNum;
+//  class ResultType {
+//    public TreeNode node;
+//    public int sum, num, maxSum, maxNum;
+//
+//    public ResultType(TreeNode node, int sum, int num, int maxSum, int maxNum) {
+//      this.node = node;
+//      this.sum = sum;
+//      this.num = num;
+//      this.maxSum = maxSum;
+//      this.maxNum = maxNum;
+//    }
+//  }
+//
+//  public TreeNode maxMeanNode(TreeNode root) {
+//    return helper(root).node;
+//  }
+//
+//  public ResultType helper(TreeNode root) {
+//    ResultType result = new ResultType(root, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+//
+//    if (root == null) {
+//      return result;
+//    }
+//
+//    System.out.printf("P(1) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+//
+//    ResultType left = helper(root.left);
+//    ResultType right = helper(root.right);
+//
+//    System.out.printf("P(2) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+//
+//    result.sum = root.val + left.sum + right.sum;
+//    result.num = 1 + left.num + right.num;
+//    result.maxSum = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.maxSum : right.maxSum;
+//    result.maxNum = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.maxNum : right.maxNum;
+//    result.node = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.node: right.node;
+//
+//
+//
+//    if (result.sum * result.maxNum >= result.maxSum * result.num) {
+//      result.maxSum = result.sum;
+//      result.maxNum = result.num;
+//      result.node = root;
+//      System.out.printf("P(3) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+//    }
+//
+//    System.out.printf("P(4) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+//
+//    return result;
+//  }
 
-    public ResultType(TreeNode node, int sum, int num, int maxSum, int maxNum) {
-      this.node = node;
+  class Mean{
+    public int sum, size;
+
+    public Mean(int sum, int size) {
       this.sum = sum;
-      this.num = num;
-      this.maxSum = maxSum;
-      this.maxNum = maxNum;
+      this.size = size;
     }
   }
+
+  private TreeNode theNode = null;
+  private Mean theMean = null;
 
   public TreeNode maxMeanNode(TreeNode root) {
-    return helper(root).node;
+    helper(root);
+    return theNode;
   }
 
-  public ResultType helper(TreeNode root) {
-    ResultType result = new ResultType(root, 0, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  public Mean helper(TreeNode root) {
+    Mean mean = new Mean(0, 0);
 
     if (root == null) {
-      return result;
+      return mean;
     }
 
-    System.out.printf("P(1) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+    Mean left = helper(root.left);
+    Mean right = helper(root.right);
 
-    ResultType left = helper(root.left);
-    ResultType right = helper(root.right);
+    mean.sum = root.val + left.sum + right.sum;
+    mean.size = 1 + left.size + right.size;
 
-    System.out.printf("P(2) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
-
-    result.sum = root.val + left.sum + right.sum;
-    result.num = 1 + left.num + right.num;
-    result.maxSum = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.maxSum : right.maxSum;
-    result.maxNum = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.maxNum : right.maxNum;
-    result.node = (left.maxSum * right.maxNum >= right.maxSum * left.maxNum) ? left.node: right.node;
-
-
-
-    if (result.sum * result.maxNum >= result.maxSum * result.num) {
-      result.maxSum = result.sum;
-      result.maxNum = result.num;
-      result.node = root;
-      System.out.printf("P(3) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+    if (theMean == null) {
+      theMean = mean;
+      theNode = root;
     }
 
-    System.out.printf("P(4) node->[%d] sum=%d num=%d maxSum=%d maxNum=%d \n", result.node.val, result.sum, result.num, result.maxSum, result.maxNum);
+    if (mean.sum * theMean.size > mean.size * theMean.sum) {
+      theMean = mean;
+      theNode = root;
+    }
 
-    return result;
+    return mean;
   }
 
   public static void main(String[] args) {
