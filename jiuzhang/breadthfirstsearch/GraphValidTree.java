@@ -41,7 +41,7 @@ public class GraphValidTree {
       }
     }
 
-    return visited.size() == n;
+    return (visited.size() == n);
   }
 
   private Map<Integer, Set<Integer>> initializeGraph(int n, int[][] edges) {
