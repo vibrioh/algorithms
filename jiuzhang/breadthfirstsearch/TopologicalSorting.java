@@ -16,6 +16,8 @@ public class TopologicalSorting {
   }
 
   /**
+   *
+   * 如果有环，返回false if graph.size() != sorted.size()
    * @param graph: A list of Directed graph node
    * @return Any topological order for the given graph.
    */
