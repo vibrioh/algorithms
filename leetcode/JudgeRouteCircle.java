@@ -13,6 +13,7 @@ package leetcode;
  Output: false
  */
 public class JudgeRouteCircle {
+
   public boolean judgeCircle(String moves) {
     int x = 0;
     int y = 0;
