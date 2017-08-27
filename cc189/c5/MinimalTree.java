@@ -8,7 +8,7 @@ public class MinimalTree {
     return dfsHelper(array, 0, array.length-1);
   }
 
-  public TreeNode dfsHelper(int[] arr, int start, int end) {
+  private TreeNode dfsHelper(int[] arr, int start, int end) {
     if (end < start) {
       return null;
     }
