@@ -28,7 +28,7 @@ public class IslandPerimeter {
     int[][] test1 = {{1, 0}};
 //    IslandPerimeter island = new IslandPerimeter();
 //    int res1 = island.islandPerimeter(test1);
-    System.out.println(test1[0][0] + " " + test1[1][0]);
+    System.out.println(test1[0][0] + " " + test1[0][1]);
 //    System.out.println(res1);
   }
 }
