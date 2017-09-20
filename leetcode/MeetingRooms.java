@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +38,30 @@ public class MeetingRooms {
           } else {
             set.add(j);
           }
+        }
+      }
+      return true;
+    }
+  }
+
+  /**
+   * Use of Comparator
+   */
+  class Solution2 {
+
+    public boolean canAttendMeetings(Interval[] intervals) {
+      class Sortbystart implements Comparator<Interval> {
+
+        // Used for sorting in ascending order of
+        // start
+        public int compare(Interval a, Interval b) {
+          return a.start - b.start;
+        }
+      }
+      Arrays.sort(intervals, new Sortbystart());
+      for (int i = 0; i < intervals.length - 1; i++) {
+        if (intervals[i].end > intervals[i + 1].start) {
+          return false;
         }
       }
       return true;
