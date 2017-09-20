@@ -59,7 +59,9 @@ public class MeetingRooms {
 //        }
 //      }
 //      Arrays.sort(intervals, new Sortbystart());
-
+/**
+ * classic expression on Comparator
+ */
       Arrays.sort(intervals, new Comparator<Interval>() {
         public int compare(Interval i1, Interval i2) {
           return i1.start - i2.start;
