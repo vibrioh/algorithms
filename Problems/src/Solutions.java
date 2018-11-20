@@ -1,6 +1,3 @@
-import javax.lang.model.type.NullType;
-import java.lang.reflect.Array;
-import java.math.BigInteger;
 import java.util.*;
 
 public class Solutions {
@@ -582,6 +579,53 @@ public class Solutions {
             }
         }
         return distance;
+    }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // to find if all course can be inDegree 0;
+        if (numCourses == 0 || prerequisites == null) {
+            return true;
+        }
+        // build graph
+        Map<Integer, List<Integer>> graphMap = new HashMap<>();
+        Map<Integer, Integer> inDegrees = new HashMap<>();
+        for (int i = 0; i < numCourses; i++) {
+            graphMap.put(i, new ArrayList<Integer>());
+            inDegrees.put(i, 0);
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            graphMap.get(prerequisites[i][0]).add(prerequisites[i][1]);
+            inDegrees.put(prerequisites[i][1], inDegrees.get(prerequisites[i][1]) + 1);
+        }
+        //toplogical sorting
+        while (inDegrees.size() > 0) {
+            boolean hasZero = false;
+            List<Integer> remove = new ArrayList<>();
+            for (Map.Entry<Integer, Integer> entry : inDegrees.entrySet()) {
+
+                int course = entry.getKey();
+                int inDegree = entry.getValue();
+                System.out.println(course + ":" + inDegree);
+                if (inDegree == 0) {
+                    hasZero = true;
+
+                    for (int i : graphMap.get(course)) {
+                        inDegrees.put(i, inDegrees.get(i) - 1);
+
+
+                    }
+                    // graphMap.remove(course);
+                    remove.add(course);
+                }
+            }
+            for (Integer i : remove) {
+                inDegrees.remove(i);
+            }
+            if (!hasZero) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
