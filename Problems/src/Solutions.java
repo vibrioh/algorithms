@@ -594,7 +594,9 @@ public class Solutions {
             inDegrees.put(i, 0);
         }
         for (int i = 0; i < prerequisites.length; i++) {
+            // dependence is wrong too
             graphMap.get(prerequisites[i][0]).add(prerequisites[i][1]);
+
             inDegrees.put(prerequisites[i][1], inDegrees.get(prerequisites[i][1]) + 1);
         }
         //toplogical sorting
