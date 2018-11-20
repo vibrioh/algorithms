@@ -379,4 +379,71 @@ public class Solutions {
         }
         return res;
     }
+
+    public int divide(int dividend, int divisor) {
+        if (dividend == Integer.MIN_VALUE && divisor == -1) {
+            return Integer.MAX_VALUE;
+        }
+        boolean isNegative = (dividend > 0 && divisor < 0) || (dividend < 0 && divisor > 0);
+        long dividendL = Math.abs((long) dividend);
+        long divisorL = Math.abs((long) divisor);
+        int result = 0;
+        while (dividendL >= divisorL) {
+            int shift = 0;
+            while (dividendL >= (divisorL << shift)) {
+                shift++;
+            }
+            dividendL -= divisorL << (shift - 1);
+            result += 1 << (shift - 1);
+        }
+        return isNegative ? -result : result;
+    }
+
+    public int[] searchRange(int[] nums, int target) {
+        int firstIdx = -1;
+        int lastIdx = -1;
+        int[] nonRes = {firstIdx, lastIdx};
+        if (nums == null || nums.length == 0 || target < nums[0] || target > nums[nums.length - 1]) {
+            return nonRes;
+        }
+        int startIdx = 0;
+        int endIdx = nums.length - 1;
+        int midIdx;
+        while (startIdx + 1 < endIdx) {
+            midIdx = startIdx + (endIdx - startIdx) / 2;
+            if (nums[midIdx] > target) {
+                endIdx = midIdx;
+            } else if (nums[midIdx] < target) {
+                startIdx = midIdx;
+            } else {
+                endIdx = midIdx;
+            }
+        }
+        if (target == nums[startIdx]) {
+            firstIdx = startIdx;
+        } else if (target == nums[endIdx]) {
+            firstIdx = endIdx;
+        } else {
+            return nonRes;
+        }
+        endIdx = nums.length - 1;
+        while (startIdx + 1 < endIdx) {
+            midIdx = startIdx + (endIdx - startIdx) / 2;
+            if (nums[midIdx] > target) {
+                endIdx = midIdx;
+            } else if (nums[midIdx] < target) {
+                startIdx = midIdx;
+            } else {
+                startIdx = midIdx;
+            }
+        }
+        if (target == nums[endIdx]) {
+            lastIdx = endIdx;
+        } else if (target == nums[startIdx]) {
+            lastIdx = startIdx;
+        } else {
+            return nonRes;
+        }
+        return new int[]{firstIdx, lastIdx};
+    }
 }

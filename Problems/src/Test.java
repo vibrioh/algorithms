@@ -14,10 +14,12 @@ public class Test {
         System.out.println(s.maxArea(new int[]{15000, 14999, 14998, 14997, 14996, 14995, 14994, 14993, 14992, 14991}));
         System.out.println(s.intToRoman(3333));
         System.out.println(s.romanToInt("MVIXII"));
-        System.out.println(s.longestCommonPrefix(new String[] {"flower","flow","flight"}));
+        System.out.println(s.longestCommonPrefix(new String[]{"flower", "flow", "flight"}));
         System.out.println(s.threeSum(new int[]{-2, -1, -1, 0, 1, 1, 2, 4}));
         System.out.println(s.threeSumClosest(new int[]{-2, -1, -1, 0, 1, 1, 2, 4}, 5));
         System.out.println(s.letterCombinations("9388"));
+        System.out.println(s.divide(-2147483648, -1));
+        System.out.println(Arrays.toString(s.searchRange(new int[]{2, 3, 4, 5, 6, 6, 6, 6, 7, 9}, 6)));
     }
 }
 
