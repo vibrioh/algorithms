@@ -14,6 +14,16 @@ public class Solutions {
         }
     }
 
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
 
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -446,4 +456,53 @@ public class Solutions {
         }
         return new int[]{firstIdx, lastIdx};
     }
+
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<String> nodeList = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    nodeList.add(String.valueOf(node.left.val));
+                    queue.add(node.left);
+                } else {
+                    nodeList.add("#");
+                }
+                if (node.right != null) {
+                    nodeList.add(String.valueOf(node.right.val));
+                    queue.add(node.right);
+                } else {
+                    nodeList.add("#");
+                }
+            }
+            if (!isPalindromeStr(nodeList)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isPalindromeStr(List<String> nodeList) {
+        int startIdx = 0;
+        int endIdx = nodeList.size() - 1;
+        while (startIdx + 1 < endIdx) {
+            if (!nodeList.get(startIdx).equals(nodeList.get(endIdx))) {
+                return false;
+            }
+            startIdx++;
+            endIdx--;
+        }
+        if (!nodeList.get(startIdx).equals(nodeList.get(endIdx))) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
