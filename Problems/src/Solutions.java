@@ -504,5 +504,85 @@ public class Solutions {
         return true;
     }
 
-    
+    public class Coordinate {
+        int r;
+        int c;
+
+        Coordinate(int r, int c) {
+            this.r = r;
+            this.c = c;
+        }
+
+        public Coordinate move(int x, int y) {
+            return new Coordinate(this.r + x, this.c + y);
+        }
+
+        public boolean inBound(int[][] matrix) {
+            return this.r < matrix.length && this.c < matrix[0].length && this.r >= 0 && this.c >= 0;
+        }
+
+        // @Override
+        // public boolean equals(Object obj) {
+        // if (this == obj)
+        // 	return true;
+        // if (obj == null)
+        // 	return false;
+        // if (getClass() != obj.getClass())
+        // 	return false;
+        // Coordinate other = (Coordinate) obj;
+        // if (this.r != other.r)
+        // 	return false;
+        // if (this.c != other.c)
+        // 	return false;
+        // return true;
+        // }
+    }
+
+    public int[][] updateMatrix(int[][] matrix) {
+        if (matrix == null) {
+            return matrix;
+        }
+
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[r].length; c++) {
+                if (matrix[r][c] == 1) {
+                    matrix[r][c] = bfsHelper(new Coordinate(r, c), matrix);
+                }
+            }
+        }
+        return matrix;
+    }
+
+    private int bfsHelper(Coordinate coor, int[][] matrix) {
+        int[] deltaX = {1, 0, 0, -1};
+        int[] deltaY = {0, 1, -1, 0};
+        int distance = 0;
+        Queue<Coordinate> queue = new LinkedList<>();
+        // Set<Coordinate> visited = new HashSet<>();
+        queue.add(coor);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            distance++;
+            for (int i = 0; i < size; i++) {
+                Coordinate currCoor = queue.poll();
+                for (int j = 0; j < 4; j++) {
+                    Coordinate newCoor = currCoor.move(deltaX[j], deltaY[j]);
+                    // System.out.println(newCoor.r + "," + newCoor.c + ": " + distance);
+                    if (newCoor.inBound(matrix)) {
+                        // System.out.println(newCoor.r + "," + newCoor.c + ": " + "inBound");
+                        if (matrix[newCoor.r][newCoor.c] == 0) {
+                            // System.out.println(newCoor.r + "," + newCoor.c + ": " + "==0");
+                            return distance;
+                        }
+                        // if (!visited.contains(newCoor)) {
+                        queue.add(newCoor);
+                        // }
+                    }
+                }
+            }
+        }
+        return distance;
+    }
+
+
 }
