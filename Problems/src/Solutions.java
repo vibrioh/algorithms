@@ -582,52 +582,39 @@ public class Solutions {
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        // to find if all course can be inDegree 0;
-        if (numCourses == 0 || prerequisites == null) {
-            return true;
-        }
-        // build graph
-        Map<Integer, List<Integer>> graphMap = new HashMap<>();
-        Map<Integer, Integer> inDegrees = new HashMap<>();
+        // how to declare and new the array of List!!
+        List<Integer>[] neighbors = new ArrayList[numCourses];
+        int[] inDegrees = new int[numCourses];
         for (int i = 0; i < numCourses; i++) {
-            graphMap.put(i, new ArrayList<Integer>());
-            inDegrees.put(i, 0);
+            neighbors[i] = new ArrayList<Integer>();
         }
         for (int i = 0; i < prerequisites.length; i++) {
-            // dependence is wrong too
-            graphMap.get(prerequisites[i][0]).add(prerequisites[i][1]);
-
-            inDegrees.put(prerequisites[i][1], inDegrees.get(prerequisites[i][1]) + 1);
+            neighbors[prerequisites[i][1]].add(prerequisites[i][0]);
+            inDegrees[prerequisites[i][0]]++;
         }
-        //toplogical sorting
-        while (inDegrees.size() > 0) {
-            boolean hasZero = false;
-            List<Integer> remove = new ArrayList<>();
-            for (Map.Entry<Integer, Integer> entry : inDegrees.entrySet()) {
+        Queue<Integer> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegrees[i] == 0) {
+                queue.add(i);
+            }
+        }
 
-                int course = entry.getKey();
-                int inDegree = entry.getValue();
-                System.out.println(course + ":" + inDegree);
-                if (inDegree == 0) {
-                    hasZero = true;
+        int finished = 0;
 
-                    for (int i : graphMap.get(course)) {
-                        inDegrees.put(i, inDegrees.get(i) - 1);
-
-
-                    }
-                    // graphMap.remove(course);
-                    remove.add(course);
+        while (!queue.isEmpty()) {
+            finished++;
+            int courseFinished = queue.poll();
+            // ArrayList is not array!!
+            for (int i = 0; i < neighbors[courseFinished].size(); i++) {
+                int course = neighbors[courseFinished].get(i);
+                inDegrees[course]--;
+                if (inDegrees[course] == 0) {
+                    queue.add(course);
                 }
             }
-            for (Integer i : remove) {
-                inDegrees.remove(i);
-            }
-            if (!hasZero) {
-                return false;
-            }
         }
-        return true;
+
+        return finished == numCourses;
     }
 
 
