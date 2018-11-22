@@ -617,5 +617,23 @@ public class Solutions {
         return finished == numCourses;
     }
 
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        } else if (p.val != q.val) {
+            return false;
+        } else {
+            // below is wrong, if both false will be true
+            //// return isSameTree(p.left, p.right) && isSameTree(p.right, q.right);
+            if (!isSameTree(p.left, q.left) || !isSameTree(p.right, q.right)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
 
 }
