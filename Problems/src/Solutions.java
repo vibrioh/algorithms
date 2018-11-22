@@ -635,5 +635,18 @@ public class Solutions {
         }
     }
 
+    public boolean hasPathSum(TreeNode root, int sum) {
+        // key is to check leaf node
+        if (root == null) {
+            return false;
+        } else if (root.left == null && root.right == null) {
+            return sum == root.val;
+        } else {
+            boolean left = hasPathSum(root.left, sum - root.val);
+            boolean right = hasPathSum(root.right, sum - root.val);
+            return left || right;
+        }
+    }
+
 
 }
