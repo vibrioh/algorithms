@@ -648,5 +648,29 @@ public class Solutions {
         }
     }
 
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> paths = new ArrayList<>();
+        if (root == null) {
+            return paths;
+        }
+        dfsPaths(root, paths, new StringBuilder());
+        return paths;
+    }
+
+    private void dfsPaths(TreeNode root, List paths, StringBuilder path) {
+        if (root.left == null && root.right == null) {
+            path.append(String.valueOf(root.val));
+            paths.add(path.toString());
+            return;
+        }
+        path.append(String.valueOf(root.val) + "->");
+        if (root.left != null) {
+            dfsPaths(root.left, paths, new StringBuilder(path.toString()));
+        }
+        if (root.right != null) {
+            dfsPaths(root.right, paths, new StringBuilder(path.toString()));
+        }
+    }
+
 
 }
