@@ -690,5 +690,24 @@ public class Solutions {
         return stack.isEmpty();
     }
 
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        //always return the min node;
+        if (l1 == null && l2 == null) {
+            return null;
+        } else if (l1 == null && l2 != null) {
+            // System.out.println(l2.val);
+            return l2;
+        } else if (l1 != null && l2 == null) {
+            // System.out.println(l1.val);
+            return l1;
+        } else {
+            ListNode minNode = l1.val < l2.val ? l1 : l2;
+            ListNode maxNode = l1.val < l2.val ? l2 : l1;
+            // System.out.println(l1.val + "--" + l2.val);
+            minNode.next = mergeTwoLists(maxNode, minNode.next);
+            return minNode;
+        }
+    }
+
 
 }
