@@ -709,5 +709,17 @@ public class Solutions {
         }
     }
 
+    public int numJewelsInStones(String J, String S) {
+        int num = 0;
+        for (char j : J.toCharArray()) {
+            for (char s : S.toCharArray()) {
+                if (j == s) {
+                    num++;
+                }
+            }
+        }
+        return num;
+    }
+
 
 }
