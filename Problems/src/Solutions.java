@@ -761,5 +761,28 @@ public class Solutions {
         return max;
     }
 
+    public int minCostClimbingStairs(int[] cost) {
+        if (cost == null) {
+            return 0;
+        }
+        int n = cost.length;
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return cost[0];
+        }
+        int[] dp = new int[n];
+        // Don't forget initialize the status
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for (int i = 2; i < n; i++) {
+            dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
+            // System.out.println(i + "->" + dp[i]);
+        }
+        // Need to decide what is the answer
+        return Math.min(dp[n - 1], dp[n - 2]);
+    }
+
 
 }
