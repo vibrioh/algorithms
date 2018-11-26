@@ -802,25 +802,18 @@ public class Solutions {
         if (nums == null || nums.length == 0) {
             return 0;
         }
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int minSubarray = Integer.MAX_VALUE;
+        int maxSubarray = Integer.MIN_VALUE;
         int sum = 0;
         for (int i = 0; i < nums.length; i++) {
+            minSubarray = Math.min(minSubarray, sum);
             sum += nums[i];
+            maxSubarray = Math.max(maxSubarray, sum - minSubarray);
         }
-        int start = 0;
-        int end = nums.length - 1;
-        int max = sum;
-        while (start < end) {
-            System.out.println(sum);
-            if (nums[start] < nums[end]) {
-                sum -= nums[start];
-                start++;
-            } else {
-                sum -= nums[end];
-                end--;
-            }
-            max = Math.max(sum, max);
-        }
-        return max;
+        return maxSubarray;
     }
 
 
