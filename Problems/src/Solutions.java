@@ -841,5 +841,34 @@ public class Solutions {
         return newHead;
     }
 
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow = new ListNode(0);
+        ListNode fast = new ListNode(0);
+        slow.next = head;
+        fast.next = head;
+        int move = n;
+        while (move > 0) {
+            fast = fast.next;
+            move--;
+        }
+        while (fast.next != null) {
+            move += 1;
+            fast = fast.next;
+            if (move % n == 0) {
+                for (int i = 0; i < n; i++) {
+                    slow = slow.next;
+                }
+            }
+        }
+        for (int i = 0; i < (move % n); i++) {
+            slow = slow.next;
+        }
+        if (head == slow.next) {
+            return head.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
+
 
 }
