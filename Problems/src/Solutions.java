@@ -842,32 +842,21 @@ public class Solutions {
     }
 
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode slow = new ListNode(0);
-        ListNode fast = new ListNode(0);
-        slow.next = head;
-        fast.next = head;
-        int move = n;
-        while (move > 0) {
+        //dummy node is not dummy pointers, multiple pointers but only one dummy node!!
+        //the step left to the end is the posion of nth from end
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode slow = dummy;
+        ListNode fast = dummy;
+        for (int i = 0; i < n; i++) {
             fast = fast.next;
-            move--;
         }
         while (fast.next != null) {
-            move += 1;
             fast = fast.next;
-            if (move % n == 0) {
-                for (int i = 0; i < n; i++) {
-                    slow = slow.next;
-                }
-            }
-        }
-        for (int i = 0; i < (move % n); i++) {
             slow = slow.next;
         }
-        if (head == slow.next) {
-            return head.next;
-        }
         slow.next = slow.next.next;
-        return head;
+        return dummy.next;
     }
 
 
