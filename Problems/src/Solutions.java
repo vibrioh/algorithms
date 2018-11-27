@@ -859,5 +859,21 @@ public class Solutions {
         return dummy.next;
     }
 
+    public int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int n = 1;
+        int num = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (num != nums[i]) {
+                n += 1;
+                num = nums[i];
+                nums[n - 1] = nums[i];
+            }
+        }
+        return n;
+    }
+
 
 }
