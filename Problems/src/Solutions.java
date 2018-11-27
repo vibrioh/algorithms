@@ -817,16 +817,18 @@ public class Solutions {
     }
 
     public int rob(int[] nums) {
-        int odd = 0;
-        int even = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i % 2 == 0) {
-                even += nums[i];
-            } else {
-                odd += nums[i];
-            }
+        if (nums == null || nums.length == 0) {
+            return 0;
         }
-        return Math.max(even, odd);
+        if (nums.length == 1) {
+            return nums[0];
+        }
+        int[] dp = new int[nums.length + 1];
+        dp[1] = nums[0];
+        for (int i = 2; i < nums.length + 1; i++) {
+            dp[i] = Math.max(dp[i - 2] + nums[i - 1], dp[i - 1]);
+        }
+        return dp[nums.length];
     }
 
 
