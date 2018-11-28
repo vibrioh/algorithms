@@ -875,5 +875,21 @@ public class Solutions {
         return n;
     }
 
+    public int removeElement(int[] nums, int val) {
+        int start = 0;
+        int end = nums.length - 1;
+        while (start <= end) {
+            // even when equal, need to check if this position is delete of not
+            // array reduce one each time
+            if (nums[start] == val) {
+                nums[start] = nums[end];
+                end--;
+            } else {
+                start++;
+            }
+        }
+        return start;
+    }
+
 
 }
