@@ -874,7 +874,7 @@ public class Solutions {
         }
         return n;
     }
-    
+
     public int removeElement(int[] nums, int val) {
         int start = 0;
         int end = nums.length - 1;
@@ -890,32 +890,32 @@ public class Solutions {
         }
         return start;
     }
-=======
-            if (haystack == null || needle == null) {
-        return -1;
-    }
+
+    public int strStr(String haystack, String needle) {
+        if (haystack == null || needle == null) {
+            return -1;
+        }
         if (needle.equals("")) {
-        return 0;
-    }
-    char[] hs = haystack.toCharArray();
-    char[] nd = needle.toCharArray();
+            return 0;
+        }
+        char[] hs = haystack.toCharArray();
+        char[] nd = needle.toCharArray();
         for (int i = 0; i < hs.length; i++) {
-        if (hs[i] == nd[0] && nd.length <= hs.length - i) {
-            int j = 1;
-            while (j < nd.length) {
-                if (hs[i + j] != nd[j]) {
-                    break;
+            if (hs[i] == nd[0] && nd.length <= hs.length - i) {
+                int j = 1;
+                while (j < nd.length) {
+                    if (hs[i + j] != nd[j]) {
+                        break;
+                    }
+                    j++;
                 }
-                j++;
-            }
-            if (j == nd.length) {
-                return i;
+                if (j == nd.length) {
+                    return i;
+                }
             }
         }
-    }
         return -1;
-}
->>>>>>> Stashed changes
+    }
 
 
 }
