@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Solutions {
 
     public class ListNode {
@@ -916,6 +918,35 @@ public class Solutions {
         }
         return -1;
     }
+
+    public void nextPermutation(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return;
+        }
+        int k = nums.length - 1;
+        while (k > 0) {
+            for (int i = k - 1; i >= 0; i--) {
+                if (nums[k] > nums[i]) {
+                    int temp = nums[i];
+                    nums[i] = nums[k];
+                    nums[k] = temp;
+                    return;
+                }
+            }
+            k--;
+        }
+
+
+        for (int i = 0, j = nums.length - 1; i < j; i++, j--) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+        }
+
+        return;
+    }
+    
+
 
 
 }
