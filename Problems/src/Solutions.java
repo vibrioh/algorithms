@@ -975,39 +975,18 @@ public class Solutions {
     }
 
     public boolean isValidSudoku(char[][] board) {
-        for (int r = 0; r < 8; r++) {
-            Set<Character> set = new HashSet<>();
-            for (int c = 0; c < 8; c++) {
-                if (board[r][c] != '.') {
-                    if (set.contains(board[r][c])) {
+        Set<String> seen = new HashSet<>();
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                char digit = board[r][c];
+                if (digit != '.') {
+                    if (!seen.add("row" + r + digit) || !seen.add("col" + c + digit) || !seen.add("block" + (r / 3) + (c / 3) + digit)) {
                         return false;
                     }
-                    set.add(board[r][c]);
                 }
             }
         }
-        for (int c = 0; c < 8; r++) {
-            Set<Character> set = new HashSet<>();
-            for (int r = 0; r < 8; c++) {
-                if (board[r][c] != '.') {
-                    if (set.contains(board[r][c])) {
-                        return false;
-                    }
-                    set.add(board[r][c]);
-                }
-            }
-        }
-        for (int r = 0; r < 3; r++) {
-            Set<Character> set = new HashSet<>();
-            for (int c = 0; c < 3; c++) {
-                if (board[r][c] != '.') {
-                    if (set.contains(board[r][c])) {
-                        return false;
-                    }
-                    set.add(board[r][c]);
-                }
-            }
-        }
+        return true;
     }
 
 }
