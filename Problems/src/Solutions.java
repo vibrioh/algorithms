@@ -989,4 +989,31 @@ public class Solutions {
         return true;
     }
 
+    public String countAndSay(int n) {
+        if (n == 1) {
+            return "1";
+        }
+        String res = "1";
+        while (n > 1) {
+            res = dfsRead(res);
+            n--;
+        }
+        return res;
+    }
+
+    private String dfsRead(String str) {
+        StringBuilder res = new StringBuilder();
+        int n = 1;
+        for (int i = 0; i < str.length(); i++) {
+            if (i == str.length() - 1 || str.charAt(i + 1) != str.charAt(i)) {
+                res.append(n).append(str.charAt(i));
+                n = 1;
+            } else {
+                n++;
+            }
+        }
+        System.out.println(res.toString());
+        return res.toString();
+    }
+
 }
