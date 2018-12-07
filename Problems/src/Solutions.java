@@ -923,30 +923,27 @@ public class Solutions {
         if (nums == null || nums.length < 2) {
             return;
         }
-        int k = nums.length - 1;
-        while (k > 0) {
-            for (int i = k - 1; i >= 0; i--) {
-                if (nums[k] > nums[i]) {
-                    int temp = nums[i];
-                    nums[i] = nums[k];
-                    nums[k] = temp;
-                    return;
+        int i = nums.length - 1;
+        for (i = nums.length - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                int j = nums.length - 1;
+                while (nums[j] <= nums[i - 1]) {
+                    j--;
                 }
+                int tmp = nums[i - 1];
+                nums[i - 1] = nums[j];
+                nums[j] = tmp;
+                break;
             }
-            k--;
+
         }
-
-
-        for (int i = 0, j = nums.length - 1; i < j; i++, j--) {
-            int temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
+        System.out.println(Arrays.toString(nums));
+        for (int j = nums.length - 1; i < j; i++, j--) {
+            int tmp = nums[j];
+            nums[j] = nums[i];
+            nums[i] = tmp;
         }
-
-        return;
+        System.out.println(Arrays.toString(nums));
     }
-
-
-
 
 }
