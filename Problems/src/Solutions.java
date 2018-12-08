@@ -1016,4 +1016,38 @@ public class Solutions {
         return res.toString();
     }
 
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> results = new ArrayList<>();
+        dfsComSum(candidates, target, new ArrayList<Integer>(), 0, results);
+        // for (List<Integer> l : results) {
+        //     Collections.sort(l);
+        // }
+        // ddpList(results);
+        return results;
+    }
+
+    private void dfsComSum(int[] candidates, int target, List<Integer> result, int idx, List<List<Integer>> results) {
+        if (target < 0) {
+            return;
+        }
+        for (int i = idx; i < candidates.length; i++) {
+            // if (i > 0 && candidates[i] == candidates[i - 1]) {
+            //     continue;
+            // }
+            result.add(candidates[i]);
+            if (target == candidates[i]) {
+                results.add(new ArrayList(result));
+            } else {
+                dfsComSum(candidates, target - candidates[i], result, i, results);
+            }
+            result.remove(result.size() - 1);
+        }
+    }
+
+    // private void ddpList(List<List<Integer>> list) {
+    //     HashSet<List<Integer>> set = new HashSet<>(list);
+    //     list.clear();
+    //     list.addAll(set);
+    // }
+
 }
