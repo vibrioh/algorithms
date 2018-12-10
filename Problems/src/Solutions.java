@@ -1078,11 +1078,11 @@ public class Solutions {
 
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> results = new ArrayList<>();
-        dfsPermute(nums, results, new ArrayList<Integer>());
+        dfsPermute(nums, results, new LinkedHashSet<Integer>());
         return results;
     }
 
-    private void dfsPermute(int[] nums, List<List<Integer>> results, List<Integer> result) {
+    private void dfsPermute(int[] nums, List<List<Integer>> results, Set<Integer> result) {
         if (nums.length == result.size()) {
             results.add(new ArrayList<>(result));
             return;
@@ -1091,7 +1091,7 @@ public class Solutions {
             if (!result.contains(nums[i])) {
                 result.add(nums[i]);
                 dfsPermute(nums, results, result);
-                result.remove(result.size() - 1);
+                result.remove(nums[i]);
             }
         }
     }
