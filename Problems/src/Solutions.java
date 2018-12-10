@@ -1031,9 +1031,6 @@ public class Solutions {
             return;
         }
         for (int i = idx; i < candidates.length; i++) {
-            // if (i > 0 && candidates[i] == candidates[i - 1]) {
-            //     continue;
-            // }
             result.add(candidates[i]);
             if (target == candidates[i]) {
                 results.add(new ArrayList(result));
@@ -1049,5 +1046,34 @@ public class Solutions {
     //     list.clear();
     //     list.addAll(set);
     // }
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> results = new ArrayList<>();
+        Arrays.sort(candidates);
+        dfsComSum2(candidates, target, results, new ArrayList<Integer>(), 0);
+        return results;
+    }
+
+    private void dfsComSum2(int[] candidates, int target, List<List<Integer>> results, List<Integer> result, int idx) {
+        if (target < 0) {
+            return;
+        }
+        for (int i = idx; i < candidates.length; i++) {
+            // choose the first time of appearance, 和第一次加入后相等的都略过
+            if (i > idx && candidates[i - 1] == candidates[i]) {
+                continue;
+            }
+            result.add(candidates[i]);
+            // System.out.println(result);
+            if (target == candidates[i]) {
+                results.add(new ArrayList(result));
+                // you can not return here because you need to remove the last one even if you got one result!!
+            } else {
+                dfsComSum2(candidates, target - candidates[i], results, result, i + 1);
+            }
+            result.remove(result.size() - 1);
+        }
+        return;
+    }
 
 }
