@@ -1033,7 +1033,7 @@ public class Solutions {
         for (int i = idx; i < candidates.length; i++) {
             result.add(candidates[i]);
             if (target == candidates[i]) {
-                results.add(new ArrayList(result));
+                results.add(new ArrayList<>(result));
             } else {
                 dfsComSum(candidates, target - candidates[i], result, i, results);
             }
@@ -1066,7 +1066,7 @@ public class Solutions {
             result.add(candidates[i]);
             // System.out.println(result);
             if (target == candidates[i]) {
-                results.add(new ArrayList(result));
+                results.add(new ArrayList<>(result));
                 // you can not return here because you need to remove the last one even if you got one result!!
             } else {
                 dfsComSum2(candidates, target - candidates[i], results, result, i + 1);
@@ -1074,6 +1074,26 @@ public class Solutions {
             result.remove(result.size() - 1);
         }
         return;
+    }
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> results = new ArrayList<>();
+        dfsPermute(nums, results, new ArrayList<Integer>());
+        return results;
+    }
+
+    private void dfsPermute(int[] nums, List<List<Integer>> results, List<Integer> result) {
+        if (nums.length == result.size()) {
+            results.add(new ArrayList<>(result));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!result.contains(nums[i])) {
+                result.add(nums[i]);
+                dfsPermute(nums, results, result);
+                result.remove(result.size() - 1);
+            }
+        }
     }
 
 }
