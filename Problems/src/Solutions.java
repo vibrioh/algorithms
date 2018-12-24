@@ -1183,16 +1183,21 @@ public class Solutions {
     }
 
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String, List<String>> map = new HashMap();
-        for (int i = 0; i < strs.length; i++) {
-            char[] ca = strs[i].toCharArray();
-            Arrays.sort(ca);
-            String sca = String.valueOf(ca);
-            map.putIfAbsent(sca, new ArrayList<>());
-            map.get(sca).add(strs[i]);
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] abc = new int[26];
+            for (Character c : str.toCharArray()) {
+                abc[c - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i : abc) {
+                sb.append("#" + i);
+            }
+            String s = sb.toString();
+            map.putIfAbsent(s, new ArrayList<>());
+            map.get(s).add(str);
         }
         return new ArrayList<>(map.values());
     }
-}
 
 }
