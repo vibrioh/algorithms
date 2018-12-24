@@ -1126,4 +1126,38 @@ public class Solutions {
         return sb.length() == 0 ? "0" : sb.toString();
     }
 
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        if (nums == null) {
+            return null;
+        }
+        List<List<Integer>> results = new ArrayList<>();
+        Arrays.sort(nums);
+        boolean[] visited = new boolean[nums.length];
+        dfsPermuteUnique(results, new ArrayList<Integer>(), nums, visited);
+        return results;
+    }
+
+    private void dfsPermuteUnique(List<List<Integer>> results,
+                                  List<Integer> result,
+                                  int[] nums,
+                                  boolean[] visited) {
+        if (result.size() == nums.length) {
+            results.add(new ArrayList<>(result));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!visited[i]) {
+                if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) {
+                    continue;
+                }
+                result.add(nums[i]);
+                visited[i] = true;
+                dfsPermuteUnique(results, result, nums, visited);
+                result.remove(result.size() - 1);
+                visited[i] = false;
+            }
+        }
+        return;
+    }
+
 }
