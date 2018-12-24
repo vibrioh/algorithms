@@ -1096,4 +1096,33 @@ public class Solutions {
         }
     }
 
+    public String multiply(String num1, String num2) {
+        char[] nchar1 = num1.toCharArray();
+        char[] nchar2 = num2.toCharArray();
+        int n1 = nchar1.length;
+        int n2 = nchar2.length;
+        int[] product = new int[n1 + n2];
+        for (int i = n1 - 1; i >= 0; i--) {
+            for (int j = n2 - 1; j >= 0; j--) {
+                int digit1 = nchar1[i] - '0';
+                int digit2 = nchar2[j] - '0';
+                int pro = digit1 * digit2;
+                // first, add right pos to have current sum
+                // second, get the left pos and add for current pos
+                // third, get the current right pos
+                int sum = pro + product[i + j + 1];
+                product[i + j] += sum / 10;
+                product[i + j + 1] = sum % 10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int n : product) {
+            if (sb.length() == 0 && n == 0) {
+                continue;
+            }
+            sb.append(n);
+        }
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+
 }
