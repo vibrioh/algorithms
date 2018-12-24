@@ -1160,4 +1160,26 @@ public class Solutions {
         return;
     }
 
+    public void rotate(int[][] matrix) {
+        if (matrix == null) {
+            return;
+        }
+        int len = matrix.length;
+        for (int r = 0; r < len; r++) {
+            for (int c = 0; c < len / 2; c++) {
+                int tmp = matrix[r][c];
+                matrix[r][c] = matrix[r][len - 1 - c];
+                matrix[r][len - 1 - c] = tmp;
+            }
+        }
+        for (int r = 0; r < len - 1; r++) {
+            for (int c = 0; c < len - 1 - r; c++) {
+                int tmp = matrix[r][c];
+                matrix[r][c] = matrix[len - 1 - c][len - 1 - r];
+                matrix[len - 1 - c][len - 1 - r] = tmp;
+            }
+        }
+        return;
+    }
+
 }
