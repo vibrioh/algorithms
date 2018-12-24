@@ -1182,4 +1182,17 @@ public class Solutions {
         return;
     }
 
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap();
+        for (int i = 0; i < strs.length; i++) {
+            char[] ca = strs[i].toCharArray();
+            Arrays.sort(ca);
+            String sca = String.valueOf(ca);
+            map.putIfAbsent(sca, new ArrayList<>());
+            map.get(sca).add(strs[i]);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
+
 }
