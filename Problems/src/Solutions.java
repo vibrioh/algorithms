@@ -1097,6 +1097,7 @@ public class Solutions {
     }
 
     public String multiply(String num1, String num2) {
+        // `num1[i] * num2[j]` will be placed at indices `[i + j`, `i + j + 1]`
         char[] nchar1 = num1.toCharArray();
         char[] nchar2 = num2.toCharArray();
         int n1 = nchar1.length;
