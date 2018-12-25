@@ -1233,6 +1233,7 @@ public class Solutions {
             for (int i = startR; i <= endR; i++) {
                 res.add(matrix[i][endC]);
             }
+            // note: when loop of while into a special end, need to check the boundary case!!!!!!!!!!!
             if (startR < endR && startC < endC) {
                 for (int i = endC - 1; i > startC; i--) {
                     res.add(matrix[endR][i]);
