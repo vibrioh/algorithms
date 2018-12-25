@@ -1200,4 +1200,21 @@ public class Solutions {
         return new ArrayList<>(map.values());
     }
 
+    public double myPow(double x, int n) {
+        long nl = n;
+        if (n < 0) {
+            nl = -nl;
+            x = 1 / x;
+        }
+        double res = 1.0;
+        double currProd = x;
+        for (long i = nl; i > 0; i /= 2) {
+            if (i % 2 == 1) {
+                res *= currProd;
+            }
+            currProd *= currProd;
+        }
+        return res;
+    }
+
 }
