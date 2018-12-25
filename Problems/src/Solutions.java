@@ -1217,4 +1217,36 @@ public class Solutions {
         return res;
     }
 
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) {
+            return res;
+        }
+        int startR = 0;
+        int startC = 0;
+        int endR = matrix.length - 1;
+        int endC = matrix[0].length - 1;
+        while (startR <= endR && startC <= endC) {
+            for (int i = startC; i < endC; i++) {
+                res.add(matrix[startR][i]);
+            }
+            for (int i = startR; i <= endR; i++) {
+                res.add(matrix[i][endC]);
+            }
+            if (startR < endR && startC < endC) {
+                for (int i = endC - 1; i > startC; i--) {
+                    res.add(matrix[endR][i]);
+                }
+                for (int i = endR; i > startR; i--) {
+                    res.add(matrix[i][startC]);
+                }
+            }
+            startR++;
+            startC++;
+            endR--;
+            endC--;
+        }
+        return res;
+    }
+
 }
