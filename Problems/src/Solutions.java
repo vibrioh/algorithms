@@ -1310,4 +1310,25 @@ public class Solutions {
         return res;
     }
 
+    public int lengthOfLastWord(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int len = 0;
+        boolean start = false;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (!start && s.charAt(i) != ' ') {
+                start = true;
+            }
+            if (start) {
+                if (s.charAt(i) == ' ') {
+                    return len;
+                } else {
+                    len++;
+                }
+            }
+        }
+        return len;
+    }
+
 }
