@@ -1314,19 +1314,13 @@ public class Solutions {
         if (s == null || s.length() == 0) {
             return 0;
         }
+        String st = s.trim();
         int len = 0;
-        boolean start = false;
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (!start && s.charAt(i) != ' ') {
-                start = true;
+        for (int i = st.length() - 1; i >= 0; i--) {
+            if (st.charAt(i) == ' ') {
+                break;
             }
-            if (start) {
-                if (s.charAt(i) == ' ') {
-                    return len;
-                } else {
-                    len++;
-                }
-            }
+            len++;
         }
         return len;
     }
