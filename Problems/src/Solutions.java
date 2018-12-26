@@ -1289,22 +1289,14 @@ public class Solutions {
         if (intervals == null || intervals.size() == 0) {
             return res;
         }
-        int len = intervals.size();
-        int[] starts = new int[len];
-        int[] ends = new int[len];
-        for (int i = 0; i < len; i++) {
-            starts[i] = intervals.get(i).start;
-            ends[i] = intervals.get(i).end;
-        }
-        Arrays.sort(starts);
-        Arrays.sort(ends);
-        int currStart = starts[0];
-        for (int i = 0; i < len; i++) {
-            if (i == len - 1) {
-                res.add(new Interval(currStart, ends[i]));
-            } else if (ends[i] < starts[i + 1]) {
-                res.add(new Interval(currStart, ends[i]));
-                currStart = starts[i + 1];
+        intervals.sort(Comparator.comparing(i -> i.start));
+        Interval last = null;
+        for (Interval curr : intervals) {
+            if (last == null || last.end < curr.start) {
+                res.add(curr);
+                last = curr;
+            } else {
+                last.end = Math.max(curr.end, last.end);
             }
         }
         return res;
