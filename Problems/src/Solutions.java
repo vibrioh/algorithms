@@ -1312,4 +1312,28 @@ public class Solutions {
         return len;
     }
 
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int value = 1;
+        for (int start = 0, end = n - 1; start <= end; start++, end--) {
+            for (int c = start; c <= end; c++) {
+                res[start][c] = value;
+                value++;
+            }
+            for (int r = start + 1; r < end; r++) {
+                res[r][end] = value;
+                value++;
+            }
+            for (int c = end; c > start; c--) {
+                res[end][c] = value;
+                value++;
+            }
+            for (int r = end; r > start; r--) {
+                res[r][start] = value;
+                value++;
+            }
+        }
+        return res;
+    }
+
 }
