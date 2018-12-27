@@ -1255,17 +1255,13 @@ public class Solutions {
             return false;
         }
         boolean[] can = new boolean[nums.length];
-        can[0] = true;
+        int farest = nums[0];
         for (int i = 0; i < nums.length; i++) {
-            System.out.println("i" + i);
-            for (int j = 1; j <= nums[i] && i + j < nums.length; j++) {
-                System.out.println("i" + i + "j" + j);
-                if (can[i]) {
-                    can[i + j] = true;
-                }
+            if (i <= farest) {
+                farest = Math.max(farest, i + nums[i]);
             }
         }
-        return can[nums.length - 1];
+        return farest >= nums.length - 1;
     }
 
     public class Interval {
