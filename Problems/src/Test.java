@@ -20,8 +20,9 @@ public class Test {
 ////        System.out.println(s.letterCombinations("9388"));
 ////        System.out.println(s.divide(-2147483648, -1));
 ////        System.out.println(Arrays.toString(s.searchRange(new int[]{2, 3, 4, 5, 6, 6, 6, 6, 7, 9}, 6)));
-        s.nextPermutation(new int[]{1, 3, 2});
-        System.out.println(s.myPow(0, -40));
+//        s.nextPermutation(new int[]{1, 3, 2});
+//        System.out.println(s.myPow(0, -40));
+        System.out.println(s.canJump(new int[]{2, 3, 1, 1, 4}));
     }
 }
 

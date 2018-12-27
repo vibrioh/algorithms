@@ -1250,23 +1250,22 @@ public class Solutions {
         return res;
     }
 
-    public boolean canJumpFromPosition(int position, int[] nums) {
-        if (position == nums.length - 1) {
-            return true;
+    public boolean canJump(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return false;
         }
-
-        int furthestJump = Math.min(position + nums[position], nums.length - 1);
-        for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
-            if (canJumpFromPosition(nextPosition, nums)) {
-                return true;
+        boolean[] can = new boolean[nums.length];
+        can[0] = true;
+        for (int i = 0; i < nums.length; i++) {
+            System.out.println("i" + i);
+            for (int j = 1; j <= nums[i] && i + j < nums.length; j++) {
+                System.out.println("i" + i + "j" + j);
+                if (can[i]) {
+                    can[i + j] = true;
+                }
             }
         }
-
-        return false;
-    }
-
-    public boolean canJump(int[] nums) {
-        return canJumpFromPosition(0, nums);
+        return can[nums.length - 1];
     }
 
     public class Interval {
