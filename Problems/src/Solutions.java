@@ -1336,4 +1336,26 @@ public class Solutions {
         return res;
     }
 
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || k == 0) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        int len = 1;
+        while (head.next != null) {
+            head = head.next;
+            len++;
+        }
+        head.next = dummy.next;
+        int forward = len - (k % len);
+        while (forward > 0) {
+            head = head.next;
+            forward--;
+        }
+        dummy.next = head.next;
+        head.next = null;
+        return dummy.next;
+    }
+
 }
