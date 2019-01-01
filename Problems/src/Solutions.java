@@ -1358,4 +1358,28 @@ public class Solutions {
         return dummy.next;
     }
 
+    public String getPermutation(int n, int k) {
+        List<Integer> nums = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        int combN = n;
+        int comb = 1;
+        for(int i = 1; i <= n; i++) {
+            nums.add(i);
+            comb *= i;
+        }
+        k--;
+        while(combN > 0) {
+            comb /= combN;
+            int idx = k / comb;
+            // System.out.println("comb" + comb);
+            // System.out.println("k" + k);
+            // System.out.println("idx" + idx);
+            sb.append(nums.get(idx));
+            nums.remove(idx);
+            k %= comb;
+            combN--;
+        }
+        return sb.toString();
+    }
+
 }
