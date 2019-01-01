@@ -1363,12 +1363,12 @@ public class Solutions {
         StringBuilder sb = new StringBuilder();
         int combN = n;
         int comb = 1;
-        for(int i = 1; i <= n; i++) {
+        for (int i = 1; i <= n; i++) {
             nums.add(i);
             comb *= i;
         }
         k--;
-        while(combN > 0) {
+        while (combN > 0) {
             comb /= combN;
             int idx = k / comb;
             // System.out.println("comb" + comb);
@@ -1380,6 +1380,24 @@ public class Solutions {
             combN--;
         }
         return sb.toString();
+    }
+
+    public int firstUniqChar(String s) {
+        char[] carr = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(carr[i])) {
+                map.put(carr[i], -1);
+            } else {
+                map.put(carr[i], i);
+            }
+        }
+        for (Character c : carr) {
+            if (map.get(c) != -1) {
+                return map.get(c);
+            }
+        }
+        return -1;
     }
 
 }
