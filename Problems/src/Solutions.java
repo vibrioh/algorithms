@@ -1400,4 +1400,31 @@ public class Solutions {
         return -1;
     }
 
+    public int minFallingPathSum(int[][] A) {
+        int n = A.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = A[0][i];
+        }
+        for (int r = 1; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                int lastMin = dp[r - 1][c];
+                // System.out.println("r c " + r + " " + c);
+                // System.out.println("lastMin " + lastMin);
+                if (c - 1 >= 0 && dp[r - 1][c - 1] < lastMin) {
+                    lastMin = dp[r - 1][c - 1];
+                }
+                if (c + 1 < n && dp[r - 1][c + 1] < lastMin) {
+                    lastMin = dp[r - 1][c + 1];
+                }
+                dp[r][c] = lastMin + A[r][c];
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            res = Math.min(res, dp[n - 1][i]);
+        }
+        return res;
+    }
+
 }
