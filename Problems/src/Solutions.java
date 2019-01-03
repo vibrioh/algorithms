@@ -1464,4 +1464,26 @@ public class Solutions {
         return Math.max(max1 * max2 * max3, min1 * min2 * max1);
     }
 
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> results = new ArrayList<>();
+        if (numRows == 0) {
+            return results;
+        }
+        List<Integer> lastResult = new ArrayList<>();
+        for (int i = 1; i <= numRows; i++) {
+            List<Integer> result = new ArrayList<>();
+            for (int j = 0; j < i; j++) {
+                if (j == 0 || j == i - 1) {
+                    result.add(1);
+                } else {
+                    result.add(lastResult.get(j - 1) + lastResult.get(j));
+                }
+
+            }
+            results.add(new ArrayList<>(result));
+            lastResult = new ArrayList<>(result);
+        }
+        return results;
+    }
+
 }
