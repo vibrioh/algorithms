@@ -1507,12 +1507,7 @@ public class Solutions {
 
 
     public int arrangeCoins(int n) {
-        int l = 0;
-        while (n > l) {
-            l++;
-            n -= l;
-        }
-        return l;
+        return (int) (Math.sqrt(8L * n + 1) - 1) / 2;
     }
 
 }
