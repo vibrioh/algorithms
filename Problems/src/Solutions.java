@@ -1510,4 +1510,24 @@ public class Solutions {
         return (int) (Math.sqrt(8L * n + 1) - 1) / 2;
     }
 
+    public int compress(char[] chars) {
+        int slow = 0;
+        int fast = 0;
+        while (fast < chars.length) {
+            char curr = chars[fast];
+            int count = 0;
+            while (fast < chars.length && chars[fast] == curr) {
+                fast++;
+                count++;
+            }
+            chars[slow++] = curr;
+            if (count > 1) {
+                for (char c : String.valueOf(count).toCharArray()) {
+                    chars[slow++] = c;
+                }
+            }
+        }
+        return slow;
+    }
+
 }
