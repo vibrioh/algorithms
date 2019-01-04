@@ -1594,4 +1594,30 @@ public class Solutions {
         }
     }
 
+    public int thirdMax(int[] nums) {
+        long first = Long.MIN_VALUE;
+        long second = Long.MIN_VALUE;
+        long third = Long.MIN_VALUE;
+        // int n = 0;
+        for (int i : nums) {
+            if (i > first) {
+                third = second;
+                second = first;
+                first = i;
+                // n++;
+            } else if (i > second && i < first) {
+                third = second;
+                second = i;
+                // n++;
+            } else if (i > third && i < second) {
+                third = i;
+                // n++;
+            }
+            // System.out.println(first + " " + second + " " + third);
+        }
+        // System.out.println(n);
+        // System.out.println(first + " " + second + " " + third);
+        return third > Long.MIN_VALUE ? (int) third : (int) first;
+    }
+
 }
