@@ -1620,4 +1620,19 @@ public class Solutions {
         return third > Long.MIN_VALUE ? (int) third : (int) first;
     }
 
+    public int countPrimes(int n) {
+        boolean[] noPrimes = new boolean[n];
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (!noPrimes[i]) {
+                count++;
+                for (int j = 2; j * i < n; j++) {
+                noPrimes[j * i] = true;
+                }
+            }
+            
+        }
+        return count;
+    }
+
 }
