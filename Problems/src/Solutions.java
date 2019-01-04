@@ -1096,6 +1096,416 @@ public class Solutions {
         }
     }
 
+    public String multiply(String num1, String num2) {
+        // `num1[i] * num2[j]` will be placed at indices `[i + j`, `i + j + 1]`
+        char[] nchar1 = num1.toCharArray();
+        char[] nchar2 = num2.toCharArray();
+        int n1 = nchar1.length;
+        int n2 = nchar2.length;
+        int[] product = new int[n1 + n2];
+        for (int i = n1 - 1; i >= 0; i--) {
+            for (int j = n2 - 1; j >= 0; j--) {
+                int digit1 = nchar1[i] - '0';
+                int digit2 = nchar2[j] - '0';
+                int pro = digit1 * digit2;
+                // first, add right pos to have current sum
+                // second, get the left pos and add for current pos
+                // third, get the current right pos
+                int sum = pro + product[i + j + 1];
+                product[i + j] += sum / 10;
+                product[i + j + 1] = sum % 10;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int n : product) {
+            if (sb.length() == 0 && n == 0) {
+                continue;
+            }
+            sb.append(n);
+        }
+        return sb.length() == 0 ? "0" : sb.toString();
+    }
+
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        if (nums == null) {
+            return null;
+        }
+        List<List<Integer>> results = new ArrayList<>();
+        Arrays.sort(nums);
+        boolean[] visited = new boolean[nums.length];
+        dfsPermuteUnique(results, new ArrayList<Integer>(), nums, visited);
+        return results;
+    }
+
+    private void dfsPermuteUnique(List<List<Integer>> results,
+                                  List<Integer> result,
+                                  int[] nums,
+                                  boolean[] visited) {
+        if (result.size() == nums.length) {
+            results.add(new ArrayList<>(result));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (!visited[i]) {
+                if (i > 0 && nums[i] == nums[i - 1] && !visited[i - 1]) {
+                    continue;
+                }
+                result.add(nums[i]);
+                visited[i] = true;
+                dfsPermuteUnique(results, result, nums, visited);
+                result.remove(result.size() - 1);
+                visited[i] = false;
+            }
+        }
+        return;
+    }
+
+    public void rotate(int[][] matrix) {
+        if (matrix == null) {
+            return;
+        }
+        int len = matrix.length;
+        for (int r = 0; r < len; r++) {
+            for (int c = 0; c < len / 2; c++) {
+                int tmp = matrix[r][c];
+                matrix[r][c] = matrix[r][len - 1 - c];
+                matrix[r][len - 1 - c] = tmp;
+            }
+        }
+        for (int r = 0; r < len - 1; r++) {
+            for (int c = 0; c < len - 1 - r; c++) {
+                int tmp = matrix[r][c];
+                matrix[r][c] = matrix[len - 1 - c][len - 1 - r];
+                matrix[len - 1 - c][len - 1 - r] = tmp;
+            }
+        }
+        return;
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int[] abc = new int[26];
+            for (Character c : str.toCharArray()) {
+                abc[c - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i : abc) {
+                sb.append("#" + i);
+            }
+            String s = sb.toString();
+            map.putIfAbsent(s, new ArrayList<>());
+            map.get(s).add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    public double myPow(double x, int n) {
+        long nl = n;
+        if (n < 0) {
+            nl = -nl;
+            x = 1 / x;
+        }
+        double res = 1.0;
+        double currProd = x;
+        for (long i = nl; i > 0; i /= 2) {
+            if (i % 2 == 1) {
+                res *= currProd;
+            }
+            currProd *= currProd;
+        }
+        return res;
+    }
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) {
+            return res;
+        }
+        int startR = 0;
+        int startC = 0;
+        int endR = matrix.length - 1;
+        int endC = matrix[0].length - 1;
+        while (startR <= endR && startC <= endC) {
+            for (int i = startC; i < endC; i++) {
+                res.add(matrix[startR][i]);
+            }
+            for (int i = startR; i <= endR; i++) {
+                res.add(matrix[i][endC]);
+            }
+            // note: when loop of while into a special end, need to check the boundary case!!!!!!!!!!!
+            if (startR < endR && startC < endC) {
+                for (int i = endC - 1; i > startC; i--) {
+                    res.add(matrix[endR][i]);
+                }
+                for (int i = endR; i > startR; i--) {
+                    res.add(matrix[i][startC]);
+                }
+            }
+            startR++;
+            startC++;
+            endR--;
+            endC--;
+        }
+        return res;
+    }
+
+    public boolean canJump(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return false;
+        }
+        boolean[] can = new boolean[nums.length];
+        int farest = nums[0];
+        for (int i = 0; i < nums.length; i++) {
+            if (i <= farest) {
+                farest = Math.max(farest, i + nums[i]);
+            }
+        }
+        return farest >= nums.length - 1;
+    }
+
+    public class Interval {
+        int start;
+        int end;
+
+        Interval() {
+            start = 0;
+            end = 0;
+        }
+
+        Interval(int s, int e) {
+            start = s;
+            end = e;
+        }
+    }
+
+    public List<Interval> merge(List<Interval> intervals) {
+        List<Interval> res = new ArrayList<>();
+        if (intervals == null || intervals.size() == 0) {
+            return res;
+        }
+        intervals.sort(Comparator.comparing(i -> i.start));
+        Interval last = null;
+        for (Interval curr : intervals) {
+            if (last == null || last.end < curr.start) {
+                res.add(curr);
+                last = curr;
+            } else {
+                last.end = Math.max(curr.end, last.end);
+            }
+        }
+        return res;
+    }
+
+    public int lengthOfLastWord(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        String st = s.trim();
+        int len = 0;
+        for (int i = st.length() - 1; i >= 0; i--) {
+            if (st.charAt(i) == ' ') {
+                break;
+            }
+            len++;
+        }
+        return len;
+    }
+
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int value = 1;
+        for (int start = 0, end = n - 1; start <= end; start++, end--) {
+            for (int c = start; c <= end; c++) {
+                res[start][c] = value;
+                value++;
+            }
+            for (int r = start + 1; r < end; r++) {
+                res[r][end] = value;
+                value++;
+            }
+            for (int c = end; c > start; c--) {
+                res[end][c] = value;
+                value++;
+            }
+            for (int r = end; r > start; r--) {
+                res[r][start] = value;
+                value++;
+            }
+        }
+        return res;
+    }
+
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || k == 0) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        int len = 1;
+        while (head.next != null) {
+            head = head.next;
+            len++;
+        }
+        head.next = dummy.next;
+        int forward = len - (k % len);
+        while (forward > 0) {
+            head = head.next;
+            forward--;
+        }
+        dummy.next = head.next;
+        head.next = null;
+        return dummy.next;
+    }
+
+    public String getPermutation(int n, int k) {
+        List<Integer> nums = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        int combN = n;
+        int comb = 1;
+        for (int i = 1; i <= n; i++) {
+            nums.add(i);
+            comb *= i;
+        }
+        k--;
+        while (combN > 0) {
+            comb /= combN;
+            int idx = k / comb;
+            // System.out.println("comb" + comb);
+            // System.out.println("k" + k);
+            // System.out.println("idx" + idx);
+            sb.append(nums.get(idx));
+            nums.remove(idx);
+            k %= comb;
+            combN--;
+        }
+        return sb.toString();
+    }
+
+    public int firstUniqChar(String s) {
+        char[] carr = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(carr[i])) {
+                map.put(carr[i], -1);
+            } else {
+                map.put(carr[i], i);
+            }
+        }
+        for (Character c : carr) {
+            if (map.get(c) != -1) {
+                return map.get(c);
+            }
+        }
+        return -1;
+    }
+
+    public int minFallingPathSum(int[][] A) {
+        int n = A.length;
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            dp[0][i] = A[0][i];
+        }
+        for (int r = 1; r < n; r++) {
+            for (int c = 0; c < n; c++) {
+                int lastMin = dp[r - 1][c];
+                // System.out.println("r c " + r + " " + c);
+                // System.out.println("lastMin " + lastMin);
+                if (c - 1 >= 0 && dp[r - 1][c - 1] < lastMin) {
+                    lastMin = dp[r - 1][c - 1];
+                }
+                if (c + 1 < n && dp[r - 1][c + 1] < lastMin) {
+                    lastMin = dp[r - 1][c + 1];
+                }
+                dp[r][c] = lastMin + A[r][c];
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        for (int i = 0; i < n; i++) {
+            res = Math.min(res, dp[n - 1][i]);
+        }
+        return res;
+    }
+
+    public int maxProfitII(int[] prices) {
+        int profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1];
+            }
+        }
+        return profit;
+    }
+
+    public int maximumProduct(int[] nums) {
+        int min1 = Integer.MAX_VALUE;
+        int min2 = Integer.MAX_VALUE;
+        int max1 = Integer.MIN_VALUE;
+        int max2 = Integer.MIN_VALUE;
+        int max3 = Integer.MIN_VALUE;
+        for (int n : nums) {
+            if (n < min1) {
+                min2 = min1;
+                min1 = n;
+            } else if (n < min2) {
+                min2 = n;
+            }
+            if (n > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = n;
+            } else if (n > max2) {
+                max3 = max2;
+                max2 = n;
+            } else if (n > max3) {
+                max3 = n;
+            }
+        }
+        return Math.max(max1 * max2 * max3, min1 * min2 * max1);
+    }
+
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> results = new ArrayList<>();
+        if (numRows == 0) {
+            return results;
+        }
+        List<Integer> lastResult = new ArrayList<>();
+        for (int i = 1; i <= numRows; i++) {
+            List<Integer> result = new ArrayList<>();
+            for (int j = 0; j < i; j++) {
+                if (j == 0 || j == i - 1) {
+                    result.add(1);
+                } else {
+                    result.add(lastResult.get(j - 1) + lastResult.get(j));
+                }
+
+            }
+            results.add(new ArrayList<>(result));
+            lastResult = new ArrayList<>(result);
+        }
+        return results;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if (s == null || t == null || s.length() != t.length()) {
+            return false;
+        }
+        int[] abc = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            int cs = s.charAt(i) - 'a';
+            abc[cs]++;
+            int ct = t.charAt(i) - 'a';
+            abc[ct]--;
+        }
+        for (int n : abc) {
+            if (n != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public int arrangeCoins(int n) {
         int l = 0;
         while (n > l) {
