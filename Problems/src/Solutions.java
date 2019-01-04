@@ -1486,4 +1486,23 @@ public class Solutions {
         return results;
     }
 
+    public boolean isAnagram(String s, String t) {
+        if (s == null || t == null || s.length() != t.length()) {
+            return false;
+        }
+        int[] abc = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            int cs = s.charAt(i) - 'a';
+            abc[cs]++;
+            int ct = t.charAt(i) - 'a';
+            abc[ct]--;
+        }
+        for (int n : abc) {
+            if (n != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
