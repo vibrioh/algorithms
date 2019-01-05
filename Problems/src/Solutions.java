@@ -1546,13 +1546,15 @@ public class Solutions {
     class MinStack {
         private Stack<Integer> stack;
         private Stack<Integer> minStack;
-    
-        /** initialize your data structure here. */
+
+        /**
+         * initialize your data structure here.
+         */
         public MinStack() {
             stack = new Stack<>();
             minStack = new Stack<>();
         }
-        
+
         public void push(int x) {
             if (minStack.isEmpty() || x <= minStack.peek()) {
                 minStack.push(x);
@@ -1560,18 +1562,18 @@ public class Solutions {
             stack.push(x);
             return;
         }
-        
+
         public void pop() {
             if (stack.pop().equals(minStack.peek())) {
                 minStack.pop();
             }
             return;
         }
-        
+
         public int top() {
             return stack.peek();
         }
-        
+
         public int getMin() {
             return minStack.peek();
         }
@@ -1627,12 +1629,30 @@ public class Solutions {
             if (!noPrimes[i]) {
                 count++;
                 for (int j = 2; j * i < n; j++) {
-                noPrimes[j * i] = true;
+                    noPrimes[j * i] = true;
                 }
             }
-            
+
         }
         return count;
+    }
+
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> results = new ArrayList<>();
+        dfsSubsets(nums, new ArrayList<>(), results, 0);
+        return results;
+    }
+
+    private void dfsSubsets(int[] nums, List<Integer> result, List<List<Integer>> results, int idx) {
+        if (idx == nums.length) {
+            results.add(new ArrayList<>(result));
+            return;
+        }
+
+        result.add(nums[idx]);
+        dfsSubsets(nums, result, results, idx + 1);
+        result.remove(result.size() - 1);
+        dfsSubsets(nums, result, results, idx + 1);
     }
 
 }
