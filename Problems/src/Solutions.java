@@ -1690,4 +1690,9 @@ public class Solutions {
         return dp[m - 1][n - 1];
     }
 
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length - k];
+    }
+
 }
