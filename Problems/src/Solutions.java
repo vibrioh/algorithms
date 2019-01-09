@@ -1768,4 +1768,25 @@ public class Solutions {
         return dp[K][r][c];
     }
 
+    public int subarraySum(int[] nums, int k) {
+        int[] subSum = new int[nums.length];
+        subSum[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            subSum[i] = subSum[i - 1] + nums[i];
+        }
+        
+        int n = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (subSum[i] == k) {
+                n++;
+            }
+            for (int j = 0; j < i; j++) {
+                if (subSum[i] - subSum[j] == k) {
+                    n++;
+                }
+            }
+        }
+        return n;
+    }
+
 }
