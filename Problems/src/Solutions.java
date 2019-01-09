@@ -1739,47 +1739,33 @@ public class Solutions {
         if (K == 0) {
             return 1.0;
         }
-
-        int[] coorx = new int[]{-1, -1, 1, 1, -2, -2, 2, 2};
-        int[] coory = new int[]{-2, 2, -2, 2, -1, 1, -1, 1};
-        double[][] dp = new double[N][N];
-        for (int m = 0; m < N; m++) {
-            for (int n = 0; n < N; n++) {
-                double sum = 0.0;
-                for (int i = 0; i < 8; i++) {
-                    if (m + coorx[i] >= N || n + coory[i] >= N || m + coorx[i] < 0 || n + coory[i] < 0) {
-                        continue;
+        
+        double[][][] dp = new double[K + 1][N][N];
+        for (int i = 0; i < N; i++) {
+            Arrays.fill(dp[0][i], 1.0);
+        }
+        
+        int[] dx = new int[]{-1, -1, 1, 1, -2, -2, 2, 2};
+        int[] dy = new int[]{-2, 2, -2, 2, -1, 1, -1, 1};
+        
+        for (int k = 1; k <= K; k++) {
+            for (int m = 0; m < N; m++) {
+                for (int n = 0; n < N; n++) {
+                    double sum = 0.0;
+                    for (int i = 0; i < 8; i++) {
+                        if (m + dx[i] < N && m + dx[i] >= 0 && n + dy[i] < N && n + dy[i] >= 0) {
+                            sum += dp[k - 1][m + dx[i]][n + dy[i]];
+                        }
                     }
-                    sum += 1.0;
+                    dp[k][m][n] = sum / 8;
+                    // System.out.print(sum / 8 +  " ");
                 }
-                dp[m][n] = sum / 8;
-                // System.out.print(sum / 8 + " ");
+                // System.out.println();
             }
             // System.out.println();
         }
-        return probHelper(dp, N, K, r, c);
-    }
-
-    private double probHelper(double[][] dp, int N, int K, int r, int c) {
-        if (r >= N || c >= N || r < 0 || c < 0) {
-            return 0;
-        }
-        if (K == 0) {
-            return 1.0;
-        }
-        int[] coorx = new int[]{-1, -1, 1, 1, -2, -2, 2, 2};
-        int[] coory = new int[]{-2, 2, -2, 2, -1, 1, -1, 1};
-
-        double sum = 0.0;
-        int n = 0;
-        for (int i = 0; i < 8; i++) {
-            if (r + coorx[i] >= N || c + coory[i] >= N || r + coorx[i] < 0 || c + coory[i] < 0) {
-                continue;
-            }
-            sum += probHelper(dp, N, K - 1, r + coorx[i], c + coory[i]);
-            n++;
-        }
-        return n == 0 ? 0.0 : dp[r][c] * sum / n;
+        
+        return dp[K][r][c];
     }
 
 }
