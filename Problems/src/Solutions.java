@@ -1843,4 +1843,43 @@ public class Solutions {
         return false;
     }
 
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) {
+            return 0;
+        }
+        int n = 0;
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == '1') {
+                    dfsIsland(r, c, grid);
+                    n++;
+                    // for (char[] cs : grid) {
+                    //     for (char ch : cs) {
+                    //         System.out.print(ch + " ");
+                    //     }
+                    //     System.out.println();
+                    // }
+                }
+
+            }
+        }
+        return n;
+    }
+    
+    private void dfsIsland(int r, int c, char[][] grid) {
+        grid[r][c] = '0';
+        if (r - 1 >= 0 && grid[r - 1][c] == '1') {
+            dfsIsland(r - 1, c, grid);
+        }
+        if (r + 1 <= grid.length - 1 && grid[r + 1][c] == '1') {
+            dfsIsland(r + 1, c, grid);
+        }
+        if (c - 1 >= 0 && grid[r][c - 1] == '1') {
+            dfsIsland(r, c - 1, grid);
+        }
+        if (c + 1 <= grid[0].length - 1 && grid[r][c + 1] == '1') {
+            dfsIsland(r, c + 1, grid);
+        }
+    }
+
 }
