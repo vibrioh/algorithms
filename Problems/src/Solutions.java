@@ -1789,4 +1789,41 @@ public class Solutions {
         return n;
     }
 
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ress =  new ArrayList<>();
+        if (root == null) {
+            return ress;
+        }
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        boolean zigzag = false;
+        while(!q.isEmpty()) {
+            int size =  q.size();
+            List<Integer> res = new ArrayList<>();
+            while (size > 0) {
+                TreeNode node = q.poll();
+                if (zigzag) {
+                    res.add(0, node.val);
+                } else {
+                    res.add(node.val);
+                }
+                size--;
+                if (node.left != null) {
+                    q.add(node.left);
+                }
+                if (node.right != null) {
+                    q.add(node.right);
+                }
+            }
+            if (zigzag) {
+                zigzag = false;
+            } else {
+                zigzag = true;
+            }
+            ress.add(new ArrayList<>(res));
+        }
+        return ress;
+    }
+
 }
