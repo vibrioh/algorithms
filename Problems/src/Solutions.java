@@ -1882,4 +1882,25 @@ public class Solutions {
         }
     }
 
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        // exit null, or p/q/lca
+        if (root == null) {
+            return root;
+        }
+        // System.out.println("r=" + root.val + " p=" + p.val + " q=" + q.val);
+        if (root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if ((left == p && right == q) || (left == q && right == p)) {
+            return root;
+        } else if (left == p || left == q || right == null) {
+            return left;
+        } else if (right == p || right == q || left == null) {
+            return right;
+        }
+        return null;
+    }
+
 }
