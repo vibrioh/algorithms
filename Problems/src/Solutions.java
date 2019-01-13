@@ -1865,7 +1865,7 @@ public class Solutions {
         }
         return n;
     }
-    
+
     private void dfsIsland(int r, int c, char[][] grid) {
         grid[r][c] = '0';
         if (r - 1 >= 0 && grid[r - 1][c] == '1') {
