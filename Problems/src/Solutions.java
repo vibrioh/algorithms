@@ -1949,4 +1949,40 @@ public class Solutions {
         return res == Integer.MAX_VALUE ? 0 : res;
     }
 
+    class RandomListNode {
+        int label;
+        RandomListNode next, random;
+
+        RandomListNode(int x) {
+            this.label = x;
+        }
+    }
+
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if (head == null) {
+            return null;
+        }
+        RandomListNode dummy = new RandomListNode(0);
+        Map<RandomListNode, RandomListNode> map = new HashMap<>();
+        RandomListNode cpHead = new RandomListNode(head.label);
+        cpHead.random = head.random;
+        map.put(head, cpHead);
+        dummy.next = cpHead;
+        while (head.next != null) {
+            cpHead.next = new RandomListNode(head.next.label);
+            cpHead.next.random = head.next.random;
+            map.put(head.next, cpHead.next);
+            head = head.next;
+            cpHead = cpHead.next;
+        }
+        cpHead = dummy.next;
+        while (cpHead != null) {
+            if (cpHead.random != null) {
+                cpHead.random = map.get(cpHead.random);
+            }
+            cpHead = cpHead.next;
+        }
+        return dummy.next;
+    }
+
 }
