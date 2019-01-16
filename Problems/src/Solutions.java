@@ -2036,23 +2036,30 @@ public class Solutions {
     }
 
     public String fractionAddition(String expression) {
-        Scanner sc = new Scanner(expression).useDelimiter("/|(?=[-+])");
-        int A = 0, B = 1;
+        // scanner to take a string
+        // regex and zero-width positive lookahead assertion
+        Scanner sc = new Scanner(expression).useDelimiter("/|(?=[+-])");
+        int Numerator = 0;
+        int Denominator = 1;
         while (sc.hasNext()) {
-            int a = sc.nextInt(), b = sc.nextInt();
-            System.out.println("MAIN: a= " + a + " b= " + b);
-            A = A * b + a * B;
-            B *= b;
-            int g = gcd(A, B);
-            A /= g;
-            B /= g;
+            int num = sc.nextInt();
+            int den = sc.nextInt();
+            // System.out.println(num + "/" + den);
+            Numerator = Numerator * den + Denominator * num;
+            Denominator *= den;
+            // BE CAREFULL!! GCD of the new N/D
+            // System.out.println(Numerator + "/" + Denominator);
+            int gcd = gcd(Numerator, Denominator);
+            // System.out.println(gcd);
+            Numerator /= gcd;
+            Denominator /= gcd;
+            // System.out.println(Numerator + "/" + Denominator);
         }
-        return A + "/" + B;
+        return Numerator + "/" + Denominator;
     }
 
-    int gcd(int a, int b) {
-        System.out.println("gcd: a= " + a + " b= " + b);
-        return a != 0 ? gcd(b % a, a) : Math.abs(b);
+    private int gcd(int a, int b) {
+        return b != 0 ? gcd(b, a % b) : Math.abs(a);
     }
 
 }

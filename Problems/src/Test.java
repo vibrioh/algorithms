@@ -24,8 +24,8 @@ public class Test {
 //        System.out.println(s.myPow(0, -40));
 //        System.out.println(s.canJump(new int[]{2, 3, 1, 1, 4}));
 //        System.out.println(s.knightProbability(8, 30, 6, 4));
-//        System.out.println(s.fractionAddition("-1/2+1/2+1/3"));
-        System.out.println(s.gcd(9, 6));
+        System.out.println(s.fractionAddition("-1/2+1/2+1/3"));
+//        System.out.println(s.gcd( 2, 0));
     }
 }
 
