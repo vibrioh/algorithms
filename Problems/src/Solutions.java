@@ -2062,4 +2062,55 @@ public class Solutions {
         return b != 0 ? gcd(b, a % b) : Math.abs(a);
     }
 
+    public List<String> removeComments(String[] source) {
+        List<String> results = new ArrayList<>();
+        if (source == null || source.length == 0) {
+            return results;
+        }
+        int i = 0;
+        while (i < source.length) {
+            String currline = source[i];
+            if (currline.equals("") || currline.length() < 2) {
+                results.add(currline);
+                i++;
+                continue;
+            }
+//            System.out.println(currline);
+            String line = "";
+            for (int j = 0; j < currline.length() - 1; j++) {
+                if (currline.charAt(j) == '/' && currline.charAt(j + 1) == '*') {
+                    while (currline.equals("") || currline.length() < 2 ||!(currline.charAt(j) == '*' && currline.charAt(j + 1) == '/')) {
+//                        System.out.println(currline.charAt(j));
+                        if (j == currline.length() - 2) {
+                            i++;
+                            currline = source[i];
+                            j = 0;
+                            continue;
+                        }
+                        j++;
+                    }
+                    j++;
+                } else {
+                    line += currline.charAt(j);
+                    if (j == currline.length() - 2) {
+                        line += currline.charAt(j + 1);
+                    }
+//                    System.out.println(line);
+                }
+            }
+            for (int j = 0; j < line.length() - 1; j++) {
+                if (line.charAt(j) == '/' && line.charAt(j + 1) == '/') {
+                    line = line.substring(0, j);
+                }
+            }
+
+            if (!line.equals("")) {
+                results.add(line);
+            }
+//            System.out.println("visited " + line);
+            i++;
+        }
+        return results;
+    }
+
 }
