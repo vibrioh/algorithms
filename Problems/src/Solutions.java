@@ -2081,55 +2081,37 @@ public class Solutions {
     }
 
     public List<String> removeComments(String[] source) {
-        List<String> results = new ArrayList<>();
+        List<String> res = new ArrayList<>();
         if (source == null || source.length == 0) {
-            return results;
+            return null;
         }
-        int i = 0;
-        while (i < source.length) {
-            String currline = source[i];
-            if (currline.equals("") || currline.length() < 2) {
-                results.add(currline);
-                i++;
-                continue;
-            }
-//            System.out.println(currline);
-            String line = "";
-            for (int j = 0; j < currline.length() - 1; j++) {
-                if (currline.charAt(j) == '/' && currline.charAt(j + 1) == '*') {
-                    while (currline.equals("") || currline.length() < 2 || !(currline.charAt(j) == '*' && currline.charAt(j + 1) == '/')) {
-//                        System.out.println(currline.charAt(j));
-                        if (j == currline.length() - 2) {
-                            i++;
-                            currline = source[i];
-                            j = 0;
-                            continue;
-                        }
-                        j++;
+        StringBuilder sb = new StringBuilder();
+        boolean inBlock = false;
+        for (String line : source) {
+            // 1. comment out
+            for (int i = 0; i < line.length(); i++) {
+                if (inBlock) {
+                    if (i < line.length() - 1 && line.charAt(i) == '*' && line.charAt(i + 1) == '/') {
+                        inBlock = false;
+                        i++;
                     }
-                    j++;
                 } else {
-                    line += currline.charAt(j);
-                    if (j == currline.length() - 2) {
-                        line += currline.charAt(j + 1);
+                    if (i < line.length() - 1 && line.charAt(i) == '/' && line.charAt(i + 1) == '*') {
+                        inBlock = true;
+                        i++;
+                    } else if (i < line.length() - 1 && line.charAt(i) == '/' && line.charAt(i + 1) == '/') {
+                        break;
+                    } else {
+                        sb.append(line.charAt(i));
                     }
-//                    System.out.println(line);
                 }
             }
-            for (int j = 0; j < line.length() - 1; j++) {
-                if (line.charAt(j) == '/' && line.charAt(j + 1) == '/') {
-                    line = line.substring(0, j);
-                }
+            // 2. added to
+            if (!inBlock && sb.length() > 0) {
+                res.add(sb.toString());
+                sb = new StringBuilder();
             }
-
-            if (!line.equals("")) {
-                results.add(line);
-            }
-//            System.out.println("visited " + line);
-            i++;
         }
-        return results;
-
+        return res;
     }
-
 }

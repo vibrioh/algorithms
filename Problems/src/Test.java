@@ -28,7 +28,7 @@ public class Test {
 //        System.out.println(s.gcd( 2, 0));
 //        String a = "//iiii".substring(0, 0);
 //        System.out.println(a.equals("") + " " + (a == ""));
-        System.out.println(s.removeComments(new String[]{"a/*comment", "line", "more_comment*/b"}));
+        System.out.println(s.removeComments(new String[]{"/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"}));
     }
 }
 
