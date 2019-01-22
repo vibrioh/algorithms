@@ -2114,4 +2114,24 @@ public class Solutions {
         }
         return res;
     }
+
+    public int numDecodings(String s) {
+        // 先一个一个的看，再两个两个的看
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+        dp[1] = s.charAt(0) == '0' ? 0 : 1;
+        for (int i = 2; i <= s.length(); i++) {
+            //sigle digit
+            dp[i] = s.charAt(i - 1) == '0' ? 0 : dp[i - 1]; // no 0 then accumulate, with 0 then no single digit.
+            //two digits
+            int twoDigits = Integer.valueOf(s.substring(i - 2, i));
+            System.out.println(twoDigits);
+            dp[i] += twoDigits >= 10 && twoDigits <= 26 ? dp[i - 2] : 0;
+        }
+        return dp[s.length()];
+    }
 }
