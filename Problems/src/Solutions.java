@@ -2146,10 +2146,11 @@ public class Solutions {
                     continue;
                 }
                 for (int k = 0; k < o; k++) {
+                    if (B[j][k] == 0) {
+                        continue;
+                    }
                     res[i][k] += A[i][j] * B[j][k];
-                    // System.out.println("m = "+ i + " n = " + j);
                 }
-
             }
         }
         return res;
