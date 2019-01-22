@@ -2142,6 +2142,9 @@ public class Solutions {
         int[][] res = new int[m][o];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
+                if (A[i][j] == 0) {
+                    continue;
+                }
                 for (int k = 0; k < o; k++) {
                     res[i][k] += A[i][j] * B[j][k];
                     // System.out.println("m = "+ i + " n = " + j);
