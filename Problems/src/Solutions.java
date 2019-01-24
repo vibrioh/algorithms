@@ -2188,49 +2188,38 @@ public class Solutions {
 
     public List<int[]> getSkyline(int[][] buildings) {
         List<int[]> res = new ArrayList<>();
-        List<int[]> height = new ArrayList<>();
-        for (int[] building : buildings) {
-            // start point has negative height value
-            height.add(new int[]{building[0], -building[2]});
-            // end point has normal height value
-            height.add(new int[]{building[1], building[2]});
+        if (buildings == null || buildings.length == 0) {
+            return res;
         }
-        Collections.sort(height, new Comparator<int[]>() {
+        List<int[]> posHei = new ArrayList<>();
+        for (int[] bd : buildings) {
+            posHei.add(new int[]{bd[0], bd[2]});
+            posHei.add(new int[]{bd[1], -bd[2]});
+        }
+        Collections.sort(posHei, new Comparator<int[]>() {
             @Override
             public int compare(int[] a, int[] b) {
-                if (a[0] == b[0]) {
-                    return a[1] - b[1];
-                } else {
-                    return a[0] - b[0];
-                }
+                // 先放进去，再出来。否则，当拿出和放入的是同一高度，会造成一个gap！！
+                return a[0] == b[0] ? b[1] - a[1] : a[0] - b[0];
             }
         });
-        // Use a maxHeap to store possible heights
-        // But priority queue does not support remove in lgn time
-        // treemap support add, remove, get max in lgn time, so use treemap here
-        // key: height, value: number of this height
-        TreeMap<Integer, Integer> pq = new TreeMap<>();
-        pq.put(0, 1);
-        // Before starting, the previous max height is 0;
+        TreeMap<Integer, Integer> heiNum = new TreeMap<>();
+        heiNum.put(0, 1);
         int prev = 0;
-        // visit all points in order
-        for (int[] h : height) {
-            // a start point, add height
-            if (h[1] < 0) {
-                pq.put(-h[1], pq.getOrDefault(-h[1], 0) + 1);
-            } else {  // a end point, remove height
-                if (pq.get(h[1]) > 1) {
-                    pq.put(h[1], pq.get(h[1]) - 1);
+        for (int[] ph : posHei) {
+            if (ph[1] > 0) {
+                heiNum.put(ph[1], heiNum.getOrDefault(ph[1], 0) + 1);
+            } else {
+                if (heiNum.get(-ph[1]) > 1) {
+                    heiNum.put(-ph[1], heiNum.get(-ph[1]) - 1);
                 } else {
-                    pq.remove(h[1]);
+                    heiNum.remove(-ph[1]);
                 }
             }
-            int cur = pq.lastKey();
-            // compare current max height with previous max height, update result and
-            // previous max height if necessary
-            if (cur != prev) {
-                res.add(new int[]{h[0], cur});
-                prev = cur;
+            int curr = heiNum.lastKey();
+            if (curr != prev) {
+                res.add(new int[]{ph[0], curr});
+                prev = curr;
             }
         }
         return res;
