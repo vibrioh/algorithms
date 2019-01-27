@@ -2224,4 +2224,67 @@ public class Solutions {
         }
         return res;
     }
+
+    class LRUCache {
+
+        class ListNode {
+            int key;
+            int val;
+            ListNode prev;
+            ListNode next;
+
+            public ListNode(int key, int val) {
+                this.key = key;
+                this.val = val;
+            }
+        }
+
+        ListNode head;
+        ListNode tail;
+        int capacity;
+        Map<Integer, ListNode> map;
+
+        public LRUCache(int capacity) {
+            this.capacity = capacity;
+            this.head = new ListNode(0, 0);
+            this.tail = new ListNode(0, 0);
+            head.next = tail;
+            tail.prev = head;
+            this.map = new HashMap<>();
+        }
+
+        public int get(int key) {
+            if (!map.containsKey(key)) {
+                return -1;
+            }
+            ListNode curr = map.get(key);
+            curr.next.prev = curr.prev;
+            curr.prev.next = curr.next;
+            moveToTail(curr);
+            return map.get(key).val;
+        }
+
+        public void put(int key, int value) {
+            if (get(key) != -1) {
+                map.get(key).val = value;
+                return;
+            }
+            if (map.size() == capacity) {
+                map.remove(head.next.key);
+                head.next.next.prev = head;
+                head.next = head.next.next;
+
+            }
+            ListNode newAdd = new ListNode(key, value);
+            map.put(key, newAdd);
+            moveToTail(newAdd);
+        }
+
+        public void moveToTail(ListNode node) {
+            tail.prev.next = node;
+            node.prev = tail.prev;
+            tail.prev = node;
+            node.next = tail;
+        }
+    }
 }

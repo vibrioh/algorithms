@@ -29,7 +29,12 @@ public class Test {
 //        String a = "//iiii".substring(0, 0);
 //        System.out.println(a.equals("") + " " + (a == ""));
 //        System.out.println(s.removeComments(new String[]{"/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"}));
-        System.out.println("3".compareTo("30"));
+//        System.out.println("3".compareTo("30"));
+        Solutions.LRUCache c = new Solutions.LRUCache(1);
+        c.put(2, 1);
+        System.out.println(c.map);
+        c.put(3, 2);
+        System.out.println(c.map);
     }
 }
 
