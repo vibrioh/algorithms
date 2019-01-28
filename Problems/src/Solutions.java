@@ -2287,4 +2287,23 @@ public class Solutions {
             node.next = tail;
         }
     }
+
+    public int shortestSubarray(int[] A, int K) {
+        int res = Integer.MAX_VALUE;
+        int[] pSums = new int[A.length + 1];
+        for (int i = 1; i <= A.length; i++) {
+            pSums[i] = pSums[i - 1] + A[i - 1];
+        }
+        Deque<Integer> dq = new LinkedList<>();
+        for (int i = 0; i <= A.length; i++) {
+            while (!dq.isEmpty() && pSums[i] <= pSums[dq.getLast()]) {
+                dq.removeLast();
+            }
+            while (!dq.isEmpty() && pSums[i] - pSums[dq.getFirst()] >= K) {
+                res = Math.min(res, i - dq.removeFirst());
+            }
+            dq.addLast(i);
+        }
+        return res == Integer.MAX_VALUE ? -1 : res;
+    }
 }
