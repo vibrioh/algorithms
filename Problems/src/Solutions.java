@@ -2306,4 +2306,39 @@ public class Solutions {
         }
         return res == Integer.MAX_VALUE ? -1 : res;
     }
+
+    public List<int[]> pacificAtlantic(int[][] matrix) {
+        List<int[]> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0) {
+            return res;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] dpPac = new int[m][n];
+        int[][] dpAtl = new int[m][n];
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                int currPac = matrix[r][c];
+                int currAtl = matrix[m - r - 1][n - c - 1];
+                if (r == 0 || c == 0 || currPac >= dpPac[r - 1][c] || currPac >= dpPac[r][c - 1]) {
+                    dpPac[r][c] = currPac;
+                } else {
+                    dpPac[r][c] = Integer.MAX_VALUE;
+                }
+                if (r == 0 || c == 0 || currAtl >= dpAtl[m - r][n - c - 1] || currAtl >= dpAtl[m - r - 1][n - c]) {
+                    dpAtl[m - r - 1][n - c - 1] = currAtl;
+                } else {
+                    dpAtl[m - r - 1][n - c - 1] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (matrix[r][c] >= dpPac[r][c] && matrix[r][c] >= dpAtl[r][c]) {
+                    res.add(new int[]{r, c});
+                }
+            }
+        }
+        return res;
+    }
 }
