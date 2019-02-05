@@ -2341,4 +2341,57 @@ public class Solutions {
         }
         return res;
     }
+
+    public List<int[]> pacificAtlantic(int[][] matrix) {
+        List<int[]> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return res;
+        }
+        int m = matrix.length;
+        int n = matrix[0].length;
+        boolean[][] visitPa = new boolean[m][n];
+        boolean[][] visitAt = new boolean[m][n];
+        Queue<int[]> qPa = new LinkedList<>();
+        Queue<int[]> qAt = new LinkedList<>();
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (r == 0 || c == 0) {
+                    qPa.add(new int[]{r, c});
+                    visitPa[r][c] = true;
+                }
+                if (r == m - 1 || c == n - 1) {
+                    qAt.add(new int[]{r, c});
+                    visitAt[r][c] = true;
+                }
+            }
+        }
+        paBfs(matrix, qPa, visitPa);
+        paBfs(matrix, qAt, visitAt);
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                // System.out.println("pa " + visitPa[r][c]);
+                // System.out.println("at " + visitAt[r][c]);
+                if (visitPa[r][c] && visitAt[r][c]) {
+                    res.add(new int[]{r, c});
+                }
+            }
+        }
+        return res;
+    }
+
+    public void paBfs(int[][] matrix, Queue<int[]> q, boolean[][] visit) {
+        int[] dx = new int[]{0, 0, -1, 1};
+        int[] dy = new int[]{-1, 1, 0, 0};
+        while (!q.isEmpty()) {
+            int[] cox = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int x = cox[0] + dx[i];
+                int y = cox[1] + dy[i];
+                if (x >= 0 && y >= 0 && x < matrix.length && y < matrix[0].length && !visit[x][y] && matrix[x][y] >= matrix[cox[0]][cox[1]]) {
+                    q.add(new int[]{x, y});
+                    visit[x][y] = true;
+                }
+            }
+        }
+    }
 }
