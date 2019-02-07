@@ -2225,7 +2225,7 @@ public class Solutions {
         return res;
     }
 
-    class LRUCache {
+    static class LRUCache {
 
         class ListNode {
             int key;
@@ -2358,5 +2358,36 @@ public class Solutions {
                 }
             }
         }
+    }
+
+    public String fractionToDecimal(int numerator, int denominator) {
+        if (numerator == 0) {
+            return "0";
+        }
+        StringBuilder sb = new StringBuilder();
+        // (numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0)
+        // XOR from logic operation: (numerator < 0 ^ denominator < 0)
+        // Practical way:
+        if (numerator < 0 != denominator < 0) sb.append("-");
+        // Math.abs(Integer.MIN_VALUE) overflow
+        long num = Math.abs((long) numerator);
+        long den = Math.abs((long) denominator);
+        sb.append(String.valueOf(num / den));
+        long remainder = num % den;
+        if (remainder == 0) return sb.toString();
+        sb.append(".");
+        Map<Long, Integer> map = new HashMap<>();
+        while (remainder != 0) {
+            if (map.containsKey(remainder)) {
+                sb.insert(map.get(remainder), "(");
+                sb.append(")");
+                break;
+            }
+            map.put(remainder, sb.length());
+            remainder *= 10;
+            sb.append(String.valueOf(remainder / den));
+            remainder %= den;
+        }
+        return sb.toString();
     }
 }
