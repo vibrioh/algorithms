@@ -2390,4 +2390,29 @@ public class Solutions {
         }
         return sb.toString();
     }
+
+    public int[] plusOne(int[] digits) {
+        if (digits == null || digits.length == 0) {
+            return digits;
+        }
+        int carry = 1;
+        int idx = digits.length - 1;
+        while (idx >= 0) {
+            if (carry == 0) {
+                break;
+            }
+            int sum = digits[idx] + carry;
+            digits[idx] = sum % 10;
+            carry = sum / 10;
+            idx--;
+        }
+        int[] carryDigits = new int[digits.length + 1];
+        if (carry == 1) {
+            carryDigits[0] = 1;
+            for (int i = 1; i < carryDigits.length; i++) {
+                carryDigits[i] = digits[i - 1];
+            }
+        }
+        return carry == 1 ? carryDigits : digits;
+    }
 }
