@@ -2430,4 +2430,31 @@ public class Solutions {
         }
         return dummy.next;
     }
+
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int n = q.size();
+            List<Integer> vals = new ArrayList<>();
+            while (n > 0) {
+                TreeNode curr = q.poll();
+                vals.add(curr.val);
+                if (curr.left != null) {
+                    q.offer(curr.left);
+                }
+                if (curr.right != null) {
+                    q.offer(curr.right);
+                }
+                n--;
+            }
+            res.add(new ArrayList<>(vals));
+        }
+        Collections.reverse(res);
+        return res;
+    }
 }
