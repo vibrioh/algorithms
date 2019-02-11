@@ -2415,4 +2415,19 @@ public class Solutions {
         }
         return carry == 1 ? carryDigits : digits;
     }
+
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        while (head != null) {
+            while (head.next != null && head.next.val == head.val) {
+                head.next = head.next.next;
+            }
+            head = head.next;
+        }
+        return dummy.next;
+    }
 }
