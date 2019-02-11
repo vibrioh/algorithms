@@ -2475,4 +2475,48 @@ public class Solutions {
         curr.right = helperSortedArrayToBST(nums, mid + 1, end);
         return curr;
     }
+
+    /**
+     * The read4 API is defined in the parent class Reader4.
+     * int read4(char[] buf);
+     */
+    public class Solution extends Reader4 {
+        /**
+         * @param buf Destination buffer
+         * @param n   Number of characters to read
+         * @return The number of actual characters read
+         */
+        public int read(char[] buf, int n) {
+            int times = n / 4;
+            int remainder = n % 4;
+            int fileLen = 0;
+            int idx = 0;
+            while (times > 0) {
+                char[] filePart = new char[4];
+                int currLen = read4(filePart);
+                if (currLen == 0) {
+                    return fileLen;
+                }
+                for (char c : filePart) {
+                    buf[idx] = c;
+                    idx++;
+                }
+                fileLen += currLen;
+                times--;
+            }
+            if (remainder > 0) {
+                char[] filePart = new char[4];
+                int currLen = read4(filePart);
+                if (currLen == 0) {
+                    return fileLen;
+                }
+                int remain = Math.min(remainder, currLen);
+                fileLen += remain;
+                for (int i = 0; i < remain; i++) {
+                    buf[idx + i] = filePart[i];
+                }
+            }
+            return fileLen;
+        }
+    }
 }
