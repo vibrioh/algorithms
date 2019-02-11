@@ -2457,4 +2457,22 @@ public class Solutions {
         Collections.reverse(res);
         return res;
     }
+
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return null;
+        }
+        return helperSortedArrayToBST(nums, 0, nums.length - 1);
+    }
+
+    private TreeNode helperSortedArrayToBST(int[] nums, int start, int end) {
+        if (end < start) {
+            return null;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode curr = new TreeNode(nums[mid]);
+        curr.left = helperSortedArrayToBST(nums, start, mid - 1);
+        curr.right = helperSortedArrayToBST(nums, mid + 1, end);
+        return curr;
+    }
 }
