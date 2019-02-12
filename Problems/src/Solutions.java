@@ -2545,4 +2545,20 @@ public class Solutions {
         return sb.reverse().toString();
     }
 
+    public List<Integer> getRow(int rowIndex) {
+        List<Integer> res = new ArrayList<>();
+        if (rowIndex < 0) {
+            return res;
+        }
+        int n = 0;
+        while (n <= rowIndex) {
+            res.add(0, 1);
+            for (int i = 1; i < res.size() - 1; i++) {
+                res.set(i, res.get(i) + res.get(i + 1));
+            }
+            n++;
+        }
+        return res;
+    }
+
 }
