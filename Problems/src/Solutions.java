@@ -2588,4 +2588,17 @@ public class Solutions {
         return sb.reverse().toString();
     }
 
+    public int peakIndexInMountainArray(int[] A) {
+        int left = 0;
+        while (left < A.length - 1) {
+            if (A[left] < A[left + 1]) {
+                left++;
+            } else {
+                break;
+            }
+        }
+
+        return left;
+    }
+
 }
