@@ -2589,16 +2589,19 @@ public class Solutions {
     }
 
     public int peakIndexInMountainArray(int[] A) {
-        int left = 0;
-        while (left < A.length - 1) {
-            if (A[left] < A[left + 1]) {
-                left++;
+        int start = 0;
+        int end = A.length - 1;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (A[mid] > A[mid - 1] && A[mid] > A[mid + 1]) {
+                return mid;
+            } else if (A[mid] < A[mid + 1]) {
+                start = mid;
             } else {
-                break;
+                end = mid;
             }
         }
-
-        return left;
+        return A[start] > A[end] ? start : end;
     }
 
 }
