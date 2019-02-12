@@ -2523,4 +2523,26 @@ public class Solutions {
         return fileLen;
     }
 
+
+    public String addBinary(String a, String b) {
+        StringBuffer sb = new StringBuffer();
+        int la = a.length() - 1;
+        int lb = b.length() - 1;
+        int carry = 0;
+        while (la >= 0 || lb >= 0) {
+            int na = la >= 0 ? a.charAt(la) - '0' : 0;
+            int nb = lb >= 0 ? b.charAt(lb) - '0' : 0;
+            int sum = na + nb + carry;
+            sb.append(String.valueOf(sum % 2));
+            carry = sum / 2;
+            la--;
+            lb--;
+        }
+        if (carry == 1) {
+            // sb.insert(sb.length(), "1");
+            sb.append("1");
+        }
+        return sb.reverse().toString();
+    }
+
 }
