@@ -2604,4 +2604,32 @@ public class Solutions {
         return A[start] > A[end] ? start : end;
     }
 
+    public List<String> subdomainVisits(String[] cpdomains) {
+        List<String> res = new ArrayList<>();
+        if (cpdomains == null || cpdomains.length == 0) {
+            return res;
+        }
+        Map<String, Integer> map = new HashMap<>();
+        for (String ss : cpdomains) {
+            String[] ssa = ss.split(" ");
+            int num = Integer.valueOf(ssa[0]);
+            List<String> domains = new ArrayList<>();
+            domains.add(ssa[1]);
+            for (int i = 0; i < ssa[1].length(); i++) {
+                if (ssa[1].charAt(i) == '.') {
+                    domains.add(ssa[1].substring(i + 1));
+                }
+            }
+            for (String d : domains) {
+                map.put(d, map.getOrDefault(d, 0) + num);
+            }
+        }
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            res.add(value + " " + key);
+        }
+        return res;
+    }
+
 }
