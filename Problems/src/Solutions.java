@@ -2632,4 +2632,31 @@ public class Solutions {
         return res;
     }
 
+    public int[] shortestToChar(String S, char C) {
+        if (S == null) {
+            return null;
+        }
+        int len = S.length();
+        int[] res = new int[len];
+        // Arrays.fill(res, len);
+        int i = 0;
+        int m = len;
+        while (i < len) {
+            if (S.charAt(i) == C) {
+                int j = i - 1;
+                int n = 1;
+                while (j >= 0 && res[j] > n) {
+                    res[j] = Math.min(n, res[j]);
+                    j--;
+                    n++;
+                }
+                m = 0;
+            }
+            res[i] = m;
+            m++;
+            i++;
+        }
+        return res;
+    }
+
 }
