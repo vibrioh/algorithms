@@ -2746,4 +2746,35 @@ public class Solutions {
         return false;
     }
 
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image == null || image.length == 0) {
+            return image;
+        }
+        int m = image.length;
+        int n = image[0].length;
+        int prev = image[sr][sc];
+        image[sr][sc] = newColor;
+        int[] dr = new int[]{0, 0, -1, 1};
+        int[] dc = new int[]{-1, 1, 0, 0};
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{sr, sc});
+        while (!q.isEmpty()) {
+            int[] cor = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int corr = cor[0] + dr[i];
+                int corc = cor[1] + dc[i];
+                if (corr >= 0 && corr < m && corc >= 0 && corc < n) {
+                    if (image[corr][corc] == newColor) {
+                        continue;
+                    }
+                    if (image[corr][corc] == prev) {
+                        image[corr][corc] = newColor;
+                        q.offer(new int[]{corr, corc});
+                    }
+                }
+            }
+        }
+        return image;
+    }
+
 }
