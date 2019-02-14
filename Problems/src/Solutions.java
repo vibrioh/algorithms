@@ -2777,4 +2777,20 @@ public class Solutions {
         return image;
     }
 
+    public boolean rotateString(String A, String B) {
+        if (A == null || B == null || A.length() != B.length()) {
+            return false;
+        }
+        if (A.equals(B)) {
+            return true;
+        }
+        String AA = A + A;
+        for (int i = 0; i < A.length(); i++) {
+            if (AA.substring(i, i + A.length()).equals(B)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
