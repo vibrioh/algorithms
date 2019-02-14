@@ -2697,4 +2697,39 @@ public class Solutions {
         }
     }
 
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if (nums1 == null || nums2 == null) {
+            return null;
+        }
+        int m = nums1.length;
+        int n = nums2.length;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0;
+        int j = 0;
+        List<Integer> res = new ArrayList<>();
+        while (i < m && j < n) {
+            if (nums1[i] == nums2[j]) {
+                if (res.size() == 0) {
+                    res.add(nums1[i]);
+                } else if (res.get(res.size() - 1) != nums1[i]) {
+                    res.add(nums1[i]);
+                }
+                i++;
+                j++;
+            } else if (nums1[i] > nums2[j]) {
+                j++;
+            } else {
+                i++;
+            }
+        }
+        int[] ans = new int[res.size()];
+        int idx = 0;
+        for (Integer it : res) {
+            ans[idx] = it;
+            idx++;
+        }
+        return ans;
+    }
+
 }
