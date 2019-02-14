@@ -2781,16 +2781,16 @@ public class Solutions {
         if (A == null || B == null || A.length() != B.length()) {
             return false;
         }
-        if (A.equals(B)) {
-            return true;
-        }
+        // if (A.equals(B)) {
+        //     return true;
+        // }
         String AA = A + A;
-        for (int i = 0; i < A.length(); i++) {
-            if (AA.substring(i, i + A.length()).equals(B)) {
-                return true;
-            }
-        }
-        return false;
+        // for (int i = 0; i < A.length(); i++) {
+        //     if (AA.substring(i, i + A.length()).equals(B)) {
+        //         return true;
+        //     }
+        // }
+        return AA.contains(B);
     }
 
 }
