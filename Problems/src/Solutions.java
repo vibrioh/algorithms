@@ -2674,4 +2674,27 @@ public class Solutions {
         }
     }
 
+    public List<String> letterCasePermutation(String S) {
+        ArrayList<String> res = new ArrayList<>();
+        if (S == null) {
+            return res;
+        }
+        res.add("");
+        for (char c : S.toLowerCase().toCharArray()) {
+            dfsStrAdd(res, c);
+        }
+        return res;
+    }
+
+    private void dfsStrAdd(List<String> res, char c) {
+        int n = res.size();
+        for (int i = 0; i < n; i++) {
+            String last = res.get(i);
+            res.set(i, last + c);
+            if (Character.isLetter(c)) {
+                res.add(last + Character.toUpperCase(c));
+            }
+        }
+    }
+
 }
