@@ -1882,25 +1882,46 @@ public class Solutions {
         }
     }
 
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//        // exit null, or p/q/lca
+//        if (root == null) {
+//            return root;
+//        }
+//        // System.out.println("r=" + root.val + " p=" + p.val + " q=" + q.val);
+//        if (root == p || root == q) {
+//            return root;
+//        }
+//        TreeNode left = lowestCommonAncestor(root.left, p, q);
+//        TreeNode right = lowestCommonAncestor(root.right, p, q);
+//        if ((left == p && right == q) || (left == q && right == p)) {
+//            return root;
+//        } else if (left == p || left == q || right == null) {
+//            return left;
+//        } else if (right == p || right == q || left == null) {
+//            return right;
+//        }
+//        return null;
+//    }
+
+    /*
+    The key for lowest common Ancestor is to use "null" to pass whatever un"null"
+     */
+
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        // exit null, or p/q/lca
-        if (root == null) {
-            return root;
-        }
-        // System.out.println("r=" + root.val + " p=" + p.val + " q=" + q.val);
-        if (root == p || root == q) {
+        if (root == null || root == p || root == q) {
             return root;
         }
         TreeNode left = lowestCommonAncestor(root.left, p, q);
         TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if ((left == p && right == q) || (left == q && right == p)) {
+        if (left != null && right != null) {
             return root;
-        } else if (left == p || left == q || right == null) {
+        } else if (left != null) {
             return left;
-        } else if (right == p || right == q || left == null) {
+        } else if (right != null) {
             return right;
+        } else {
+            return null;
         }
-        return null;
     }
 
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
@@ -2904,5 +2925,6 @@ public class Solutions {
         }
         return true;
     }
+
 
 }
