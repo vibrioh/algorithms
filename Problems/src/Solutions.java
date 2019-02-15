@@ -2859,4 +2859,22 @@ public class Solutions {
         return ans;
     }
 
+    private int dbt;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        helperDBT(root);
+        return dbt;
+    }
+
+    private int helperDBT(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int left = helperDBT(root.left);
+        int right = helperDBT(root.right);
+        dbt = Math.max(dbt, left + right);
+        // System.out.println(root.val + " " + left + " " + right + " " + n);
+        return Math.max(left + 1, right + 1);
+    }
+
 }
