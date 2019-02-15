@@ -2817,4 +2817,19 @@ public class Solutions {
         return res;
     }
 
+    public int sumOfLeftLeaves(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        if (root.left == null) {
+            return sumOfLeftLeaves(root.right);
+        } else {
+            if (root.left.left == null && root.left.right == null) {
+                return sumOfLeftLeaves(root.right) + root.left.val;
+            } else {
+                return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+            }
+        }
+    }
+
 }
