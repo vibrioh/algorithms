@@ -2793,4 +2793,28 @@ public class Solutions {
         return AA.contains(B);
     }
 
+    public int findShortestSubArray(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        Map<Integer, Integer> degrees = new HashMap<>();
+        Map<Integer, Integer> idxL = new HashMap<>();
+        Map<Integer, Integer> idxR = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            degrees.put(nums[i], degrees.getOrDefault(nums[i], 0) + 1);
+            idxR.put(nums[i], i);
+            if (!idxL.containsKey(nums[i])) {
+                idxL.put(nums[i], i);
+            }
+        }
+        int degree = Collections.max(degrees.values());
+        int res = Integer.MAX_VALUE;
+        for (Integer key : degrees.keySet()) {
+            if (degrees.get(key) == degree) {
+                res = Math.min(res, idxR.get(key) - idxL.get(key) + 1);
+            }
+        }
+        return res;
+    }
+
 }
