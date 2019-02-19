@@ -2926,22 +2926,34 @@ public class Solutions {
         return true;
     }
 
+//    public int closestValue(TreeNode root, double target) {
+//        int res = root.val;
+//        double div = target - res;
+//        while (root != null) {
+//            int currRes = root.val;
+//            double currDiv = target - currRes;
+//            if (currDiv == 0) {
+//                return currRes;
+//            }
+//            if (Math.abs(currDiv) < Math.abs(div)) {
+//                res = currRes;
+//                div = currDiv;
+//            }
+//            root = currDiv > 0 ? root.right : root.left;
+//        }
+//        return res;
+//    }
+
     public int closestValue(TreeNode root, double target) {
         int res = root.val;
-        double div = target - res;
-        while (root != null) {
-            int currRes = root.val;
-            double currDiv = target - currRes;
-            if (currDiv == 0) {
-                return currRes;
-            }
-            if (Math.abs(currDiv) < Math.abs(div)) {
-                res = currRes;
-                div = currDiv;
-            }
-            root = currDiv > 0 ? root.right : root.left;
+        TreeNode nextNode = target < res ? root.left : root.right;
+        if (nextNode == null) {
+            return res;
         }
-        return res;
+        int nextVal = closestValue(nextNode, target);
+        double resAbs = Math.abs(target - res);
+        double nexAbs = Math.abs(target - nextVal);
+        return resAbs < nexAbs ? res : nextVal;
     }
 
 
