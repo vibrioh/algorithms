@@ -3012,10 +3012,6 @@ public class Solutions {
          * Push element x to the back of queue.
          */
         public void push(int x) {
-            while (!out.isEmpty()) {
-                int curr = out.pop();
-                in.push(curr);
-            }
             in.push(x);
         }
 
@@ -3023,6 +3019,9 @@ public class Solutions {
          * Removes the element from in front of queue and returns that element.
          */
         public int pop() {
+            if (!out.isEmpty()) {
+                return out.pop();
+            }
             while (!in.isEmpty()) {
                 int curr = in.pop();
                 out.push(curr);
@@ -3034,6 +3033,9 @@ public class Solutions {
          * Get the front element.
          */
         public int peek() {
+            if (!out.isEmpty()) {
+                return out.peek();
+            }
             while (!in.isEmpty()) {
                 int curr = in.pop();
                 out.push(curr);
