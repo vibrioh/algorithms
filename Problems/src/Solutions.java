@@ -2944,5 +2944,44 @@ public class Solutions {
         return res;
     }
 
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if (root == null) {
+            return false;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            int lsize = q.size();
+            boolean seen = false;
+            while (lsize > 0) {
+                TreeNode curr = q.poll();
+                TreeNode left = curr.left;
+                TreeNode right = curr.right;
+                int lv = 0, rv = 0;
+                if (left != null) {
+                    lv = left.val;
+                    q.add(left);
+                }
+                if (right != null) {
+                    rv = right.val;
+                    q.add(right);
+                }
+                boolean lchk = lv == x || lv == y;
+                boolean rchk = rv == x || rv == y;
+                if (lchk && rchk) {
+                    return false;
+                } else if (lchk || rchk) {
+                    if (!seen) {
+                        seen = true;
+                    } else {
+                        return true;
+                    }
+                }
+                lsize--;
+            }
+        }
+        return false;
+    }
+
 
 }
