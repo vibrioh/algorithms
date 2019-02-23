@@ -3051,14 +3051,35 @@ public class Solutions {
         }
     }
 
-/**
- * Your MyQueue object will be instantiated and called as such:
- * MyQueue obj = new MyQueue();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.peek();
- * boolean param_4 = obj.empty();
- */
+    /**
+     * Your MyQueue object will be instantiated and called as such:
+     * MyQueue obj = new MyQueue();
+     * obj.push(x);
+     * int param_2 = obj.pop();
+     * int param_3 = obj.peek();
+     * boolean param_4 = obj.empty();
+     */
 
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null && t == null) {
+            return true;
+        }
+        if (s == null || t == null) {
+            return false;
+        }
+        if (s.val != t.val) {
+            return isSubtree(s.left, t) || isSubtree(s.right, t);
+        }
+        boolean left = false;
+        boolean right = false;
+        if (isSubtree(s.left, t.left) && isSubtree(s.right, t.right)) {
+            return true;
+        } else if (s.left != null && s.left.val == t.val) {
+            left = isSubtree(s.left, t);
+        } else if (s.right != null && s.right.val == t.val) {
+            right = isSubtree(s.right, t);
+        }
+        return left || right;
+    }
 
 }
