@@ -3061,25 +3061,27 @@ public class Solutions {
      */
 
     public boolean isSubtree(TreeNode s, TreeNode t) {
-        if (s == null && t == null) {
-            return true;
+        StringBuilder sbs = new StringBuilder();
+        StringBuilder sbt = new StringBuilder();
+        treeToSB(s, sbs);
+        treeToSB(t, sbt);
+        System.out.println(sbs + " - " + sbt);
+        return sbs.toString().contains(sbt.toString());
+    }
+
+    private void treeToSB(TreeNode root, StringBuilder sb) {
+        if (root.left == null) {
+            sb.append("L");
+        } else {
+            treeToSB(root.left, sb);
         }
-        if (s == null || t == null) {
-            return false;
+        sb.append(root.val);
+        if (root.right == null) {
+            sb.append("R");
+        } else {
+            treeToSB(root.right, sb);
         }
-        if (s.val != t.val) {
-            return isSubtree(s.left, t) || isSubtree(s.right, t);
-        }
-        boolean left = false;
-        boolean right = false;
-        if (isSubtree(s.left, t.left) && isSubtree(s.right, t.right)) {
-            return true;
-        } else if (s.left != null && s.left.val == t.val) {
-            left = isSubtree(s.left, t);
-        } else if (s.right != null && s.right.val == t.val) {
-            right = isSubtree(s.right, t);
-        }
-        return left || right;
+        return;
     }
 
 }
