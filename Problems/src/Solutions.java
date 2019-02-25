@@ -3143,4 +3143,30 @@ public class Solutions {
         return dummy.next;
     }
 
+    public int findUnsortedSubarray(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+        int[] sorted = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            sorted[i] = nums[i];
+        }
+        Arrays.sort(sorted);
+        int start = 0;
+        int end = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != sorted[i]) {
+                start = i;
+                break;
+            }
+        }
+        for (int j = nums.length - 1; j >= 0; j--) {
+            if (nums[j] != sorted[j]) {
+                end = j;
+                break;
+            }
+        }
+        return end - start + 1;
+    }
+
 }
