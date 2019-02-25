@@ -3101,4 +3101,30 @@ public class Solutions {
         return -1;
     }
 
+    public boolean isIsomorphic(String s, String t) {
+        if (s == null || t == null || s.length() != t.length()) {
+            return false;
+        }
+        int n = 0;
+        Map<Character, Integer> ms = new HashMap<>();
+        Map<Character, Integer> mt = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char cs = s.charAt(i);
+            char ct = t.charAt(i);
+            // System.out.println(cs + " " + ct);
+            if (ms.containsKey(cs) && mt.containsKey(ct)) {
+                if (ms.get(cs) != mt.get(ct)) {
+                    return false;
+                }
+            } else if (!ms.containsKey(cs) && !mt.containsKey(ct)) {
+                ms.put(cs, n);
+                mt.put(ct, n);
+                n++;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
