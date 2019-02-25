@@ -3127,4 +3127,20 @@ public class Solutions {
         return true;
     }
 
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        while (head != null) {
+            if (head.val != val) {
+                prev = head;
+                head = head.next;
+            } else {
+                head = head.next;
+                prev.next = head;
+            }
+        }
+        return dummy.next;
+    }
+
 }
