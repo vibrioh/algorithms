@@ -3169,4 +3169,38 @@ public class Solutions {
         return end - start + 1;
     }
 
+    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        if (graph == null || graph.length == 0) {
+            return null;
+        }
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> init = new ArrayList<>();
+        init.add(0);
+        res.add(init);
+        for (int i = 0; i < graph.length; i++) {
+            if (graph[i].length == 0) {
+                continue;
+            }
+            List<List<Integer>> curr = new ArrayList<>();
+            // System.out.println(res);
+            for (List<Integer> path : res) {
+                if (path.get(path.size() - 1) == i) {
+                    for (int n : graph[i]) {
+                        ArrayList<Integer> newPath = new ArrayList<>();
+                        for (int m : path) {
+                            newPath.add(m);
+                        }
+                        newPath.add(n);
+                        curr.add(new ArrayList<>(newPath));
+                    }
+                } else {
+                    curr.add(new ArrayList<>(path));
+                }
+            }
+            // System.out.println(curr);
+            res = curr;
+        }
+        return res;
+    }
+
 }
