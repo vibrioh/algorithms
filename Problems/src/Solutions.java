@@ -3170,32 +3170,22 @@ public class Solutions {
     }
 
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        if (graph == null) {
-            return null;
-        }
         List<List<Integer>> results = new ArrayList<>();
-        List<Integer> result = new ArrayList<>();
-        result.add(0);
-        dfsAPST(0, graph, result, results);
+        List<Integer> path = new ArrayList<>();
+        path.add(0);
+        dfsAPST(graph, 0, path, results);
         return results;
     }
 
-    private void dfsAPST(int idx, int[][] graph, List<Integer> result, List<List<Integer>> results) {
-        if (idx == graph.length) {
+    private void dfsAPST(int[][] graph, int node, List<Integer> path, List<List<Integer>> results) {
+        if (node == graph.length - 1) {
+            results.add(new ArrayList<Integer>(path));
             return;
         }
-        if (result.get(result.size() - 1) == idx) {
-            for (int n : graph[idx]) {
-                result.add(n);
-                dfsAPST(idx + 1, graph, result, results);
-                result.remove(result.size() - 1);
-            }
-        } else {
-            dfsAPST(idx + 1, graph, result, results);
-        }
-
-        if (idx == graph.length - 1) {
-            results.add(new ArrayList<>(result));
+        for (int n : graph[node]) {
+            path.add(n);
+            dfsAPST(graph, n, path, results);
+            path.remove(path.size() - 1);
         }
     }
 
