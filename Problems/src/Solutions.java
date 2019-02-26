@@ -3170,37 +3170,33 @@ public class Solutions {
     }
 
     public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        if (graph == null || graph.length == 0) {
+        if (graph == null) {
             return null;
         }
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> init = new ArrayList<>();
-        init.add(0);
-        res.add(init);
-        for (int i = 0; i < graph.length; i++) {
-            if (graph[i].length == 0) {
-                continue;
-            }
-            List<List<Integer>> curr = new ArrayList<>();
-            // System.out.println(res);
-            for (List<Integer> path : res) {
-                if (path.get(path.size() - 1) == i) {
-                    for (int n : graph[i]) {
-                        ArrayList<Integer> newPath = new ArrayList<>();
-                        for (int m : path) {
-                            newPath.add(m);
-                        }
-                        newPath.add(n);
-                        curr.add(new ArrayList<>(newPath));
-                    }
-                } else {
-                    curr.add(new ArrayList<>(path));
-                }
-            }
-            // System.out.println(curr);
-            res = curr;
+        List<List<Integer>> results = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+        result.add(0);
+        dfsAPST(0, graph, result, results);
+        return results;
+    }
+
+    private void dfsAPST(int idx, int[][] graph, List<Integer> result, List<List<Integer>> results) {
+        if (idx == graph.length) {
+            return;
         }
-        return res;
+        if (result.get(result.size() - 1) == idx) {
+            for (int n : graph[idx]) {
+                result.add(n);
+                dfsAPST(idx + 1, graph, result, results);
+                result.remove(result.size() - 1);
+            }
+        } else {
+            dfsAPST(idx + 1, graph, result, results);
+        }
+
+        if (idx == graph.length - 1) {
+            results.add(new ArrayList<>(result));
+        }
     }
 
 }
