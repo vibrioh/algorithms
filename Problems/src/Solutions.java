@@ -3189,4 +3189,31 @@ public class Solutions {
         }
     }
 
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        while (root != null) {
+            List<Integer> lvs = new ArrayList<>();
+            root = dfsFL(root, lvs);
+            res.add(new ArrayList<>(lvs));
+        }
+        return res;
+    }
+
+    private TreeNode dfsFL(TreeNode root, List<Integer> res) {
+        if (root.left == null && root.right == null) {
+            res.add(root.val);
+            return null;
+        }
+        if (root.left != null) {
+            root.left = dfsFL(root.left, res);
+        }
+        if (root.right != null) {
+            root.right = dfsFL(root.right, res);
+        }
+        return root;
+    }
+
 }
