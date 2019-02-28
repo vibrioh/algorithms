@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -30,11 +30,28 @@ public class Test {
 //        System.out.println(a.equals("") + " " + (a == ""));
 //        System.out.println(s.removeComments(new String[]{"/*Test program */", "int main()", "{ ", "  // variable declaration ", "int a, b, c;", "/* This is a test", "   multiline  ", "   comment for ", "   testing */", "a = b + c;", "}"}));
 //        System.out.println("3".compareTo("30"));
-        Solutions.LRUCache c = new Solutions.LRUCache(1);
-        c.put(2, 1);
-        System.out.println(c.map);
-        c.put(3, 2);
-        System.out.println(c.map);
+//        Solutions.LRUCache c = new Solutions.LRUCache(1);
+//        c.put(2, 1);
+//        System.out.println(c.map);
+//        c.put(3, 2);
+//        System.out.println(c.map);
+        List<int[]> l = new ArrayList<>();
+        int[] a = new int[]{1, 2, 3};
+        int[] b = new int[]{4, 5, 6};
+        Set<int[]> st = new HashSet<>();
+        l.add(a);
+        l.add(b);
+        st.addAll(l);
+        for (int[] e : st) {
+            System.out.println(e);
+        }
+        l.clear();
+        for (int[] e : st) {
+            System.out.println(e);
+        }
+
+
+
     }
 }
 
