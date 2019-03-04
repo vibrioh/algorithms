@@ -3216,4 +3216,26 @@ public class Solutions {
         return root;
     }
 
+    public int findPairs(int[] nums, int k) {
+        if (nums == null || nums.length < 2 || k < 0) {
+            return 0;
+        }
+        Set<Integer> targets = new HashSet<>();
+        Arrays.sort(nums);
+        targets.add(nums[0] + k);
+        int res = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int curr = nums[i];
+            if (targets.contains(curr)) {
+                res += 1;
+                targets.remove(curr);
+            }
+            if (curr == nums[i - 1]) {
+                continue;
+            }
+            targets.add(curr + k);
+        }
+        return res;
+    }
+
 }
