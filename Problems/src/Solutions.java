@@ -3335,4 +3335,46 @@ public class Solutions {
         }
     }
 
+    public int maxAreaOfIsland(int[][] grid) {
+        int area = 0;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (visited[r][c] || grid[r][c] == 0) {
+                    continue;
+                }
+                visited[r][c] = true;
+                area = Math.max(area, bfsAI(grid, visited, new int[]{r, c}));
+            }
+        }
+        return area;
+    }
+
+    public int bfsAI(int[][] grid, boolean[][] visited, int[] start) {
+        int[] dr = new int[]{1, 0, 0, -1};
+        int[] dc = new int[]{0, 1, -1, 0};
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(start);
+        int area = 1;
+        while (!q.isEmpty()) {
+            // System.out.println(q.peek()[0] + "==" + q.peek()[1] + " " + area);
+            int[] cor = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int r = cor[0] + dr[i];
+                int c = cor[1] + dc[i];
+                if (r >= 0 && r < grid.length && c >= 0 && c < grid[0].length) {
+                    if (visited[r][c]) {
+                        continue;
+                    }
+                    if (grid[r][c] == 1) {
+                        area++;
+                        q.offer(new int[]{r, c});
+                        visited[r][c] = true;
+                    }
+                }
+            }
+        }
+        return area;
+    }
+
 }
