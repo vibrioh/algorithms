@@ -3251,6 +3251,7 @@ public class Solutions {
         return res;
     }
 
+
     class HitCounter {
         Queue<Integer> q;
 
@@ -3283,11 +3284,32 @@ public class Solutions {
         }
     }
 
-/**
- * Your HitCounter object will be instantiated and called as such:
- * HitCounter obj = new HitCounter();
- * obj.hit(timestamp);
- * int param_2 = obj.getHits(timestamp);
- */
+    /**
+     * Your HitCounter object will be instantiated and called as such:
+     * HitCounter obj = new HitCounter();
+     * obj.hit(timestamp);
+     * int param_2 = obj.getHits(timestamp);
+     */
+
+
+    public int findBottomLeftValue(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        TreeNode last = root;
+        while (!q.isEmpty()) {
+            // int levelsize = q.size();
+            // while (levelsize > 0) {
+            last = q.poll();
+            if (last.right != null) {
+                q.offer(last.right);
+            }
+            if (last.left != null) {
+                q.offer(last.left);
+            }
+            // levelsize--;
+            // }
+        }
+        return last.val;
+    }
 
 }
