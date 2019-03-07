@@ -3425,5 +3425,24 @@ public class Solutions {
         return res;
     }
 
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        List<Integer> res = new ArrayList<>();
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int i : nums) {
+            mp.put(i, mp.getOrDefault(i, 0) + 1);
+        }
+        Queue<Map.Entry<Integer, Integer>> q = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        for (Map.Entry<Integer, Integer> e : mp.entrySet()) {
+            q.offer(e);
+        }
+        // System.out.println(mp);
+        // System.out.println(q);
+        while (k > 0) {
+            res.add(q.poll().getKey());
+            k--;
+        }
+        return res;
+    }
+
 
 }
