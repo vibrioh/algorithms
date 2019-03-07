@@ -3312,4 +3312,27 @@ public class Solutions {
         return last.val;
     }
 
+    public int singleNonDuplicate(int[] nums) {
+        int len = nums.length;
+        int start = 0;
+        int end = len - 1;
+        while (start + 1 < end) {
+            int mid = (end - start) / 2 + start;
+            boolean isEven = mid % 2 == 0;
+            if ((isEven && nums[mid] == nums[mid - 1]) || (!isEven && nums[mid] == nums[mid + 1])) {
+                end = mid;
+            } else if ((isEven && nums[mid] == nums[mid + 1]) || (!isEven && nums[mid] == nums[mid - 1])) {
+                start = mid;
+            } else {
+                return nums[mid];
+            }
+        }
+
+        if ((start == 0 && start != nums[end]) || (nums[start] != nums[start - 1] && nums[start] != nums[start + 1])) {
+            return nums[start];
+        } else {
+            return nums[end];
+        }
+    }
+
 }
