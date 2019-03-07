@@ -3377,4 +3377,32 @@ public class Solutions {
         return area;
     }
 
+    public List<Integer> killProcess(List<Integer> pid, List<Integer> ppid, int kill) {
+        Map<Integer, List<Integer>> mp = new HashMap<>();
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < ppid.size(); i++) {
+            // System.out.println(ppid.get(i) + " --> " + pid.get(i));
+            List<Integer> children = mp.getOrDefault(ppid.get(i), new ArrayList<>());
+            children.add(pid.get(i));
+            mp.put(ppid.get(i), children);
+        }
+        System.out.println(mp);
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(kill);
+        res.add(kill);
+        while (!q.isEmpty()) {
+            // System.out.println(q.peek());
+            int curr = q.poll();
+            List<Integer> children = mp.get(curr);
+            if (children == null) {
+                continue;
+            }
+            for (int id : children) {
+                q.offer(id);
+                res.add(id);
+            }
+        }
+        return res;
+    }
+
 }
