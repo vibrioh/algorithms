@@ -3494,5 +3494,31 @@ public class Solutions {
         return board;
     }
 
+    public int findCircleNum(int[][] M) {
+        Queue<Integer> q = new LinkedList<>();
+        int n = M.length;
+        boolean[] visited = new boolean[n];
+        int res = 0;
+        for (int r = 0; r < n; r++) {
+            if (visited[r]) {
+                continue;
+            }
+            q.offer(r);
+            res++;
+            while (!q.isEmpty()) {
+                int curr = q.poll();
+                for (int c = 0; c < n; c++) {
+                    if (M[curr][c] == 0) {
+                        continue;
+                    }
+                    if (!visited[c]) {
+                        q.offer(c);
+                    }
+                }
+                visited[curr] = true;
+            }
+        }
+        return res;
+    }
 
 }
