@@ -3521,4 +3521,23 @@ public class Solutions {
         return res;
     }
 
+    public int[] nextGreaterElements(int[] nums) {
+        if (nums == null) {
+            return null;
+        }
+
+        int len = nums.length;
+        int[] res = new int[len];
+        for (int i = 0; i < len; i++) {
+            res[i] = -1;
+            for (int j = i + 1; j < 2 * len - 1; j++) {
+                if (nums[j % len] > nums[i]) {
+                    res[i] = nums[j % len];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
 }
