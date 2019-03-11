@@ -3444,5 +3444,55 @@ public class Solutions {
         return res;
     }
 
+    public char[][] updateBoard(char[][] board, int[] click) {
+        int m = board.length;
+        int n = board[0].length;
+        int r0 = click[0];
+        int c0 = click[1];
+        if (board[r0][c0] == 'M') {
+            board[r0][c0] = 'X';
+            return board;
+        }
+        int[] dr = new int[]{0, 0, 1, -1, 1, 1, -1, -1};
+        int[] dc = new int[]{1, -1, 0, 0, 1, -1, 1, -1};
+        if (board[r0][c0] == 'E') {
+            Queue<int[]> q = new LinkedList<>();
+            q.offer(new int[]{r0, c0});
+            board[r0][c0] = 'B';
+            // boolean[][] visited = new boolean[m][n];
+            while (!q.isEmpty()) {
+                int[] cor = q.poll();
+                int digit = 0;
+                for (int i = 0; i < 8; i++) {
+                    int r = cor[0] + dr[i];
+                    int c = cor[1] + dc[i];
+                    if (r < 0 || r >= m || c < 0 || c >= n) {
+                        continue;
+                    }
+                    if (board[r][c] == 'M') {
+                        digit++;
+                    }
+                }
+                if (digit > 0) {
+                    board[cor[0]][cor[1]] = (char) (digit + '0');
+                    continue;
+                }
+                for (int i = 0; i < 8; i++) {
+                    int r = cor[0] + dr[i];
+                    int c = cor[1] + dc[i];
+                    if (r < 0 || r >= m || c < 0 || c >= n) {
+                        continue;
+                    }
+                    if (board[r][c] == 'E') {
+                        q.offer(new int[]{r, c});
+                        board[r][c] = 'B';
+                    }
+                }
+
+            }
+        }
+        return board;
+    }
+
 
 }
