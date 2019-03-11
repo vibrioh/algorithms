@@ -3538,4 +3538,46 @@ public class Solutions {
         return res;
     }
 
+    public int numDistinctIslands(int[][] grid) {
+        if (grid == null) {
+            return 0;
+        }
+
+        Set<String> uniset = new HashSet<>();
+        Queue<int[]> q = new LinkedList<>();
+        int m = grid.length;
+        int n = grid[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int[] dr = {0, 0, -1, 1};
+        int[] dc = {1, -1, 0, 0};
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (grid[r][c] == 0 || visited[r][c]) {
+                    continue;
+                }
+                q.offer(new int[]{r, c});
+                visited[r][c] = true;
+                StringBuilder uni = new StringBuilder("00");
+                while (!q.isEmpty()) {
+                    int[] cor = q.poll();
+                    for (int i = 0; i < 4; i++) {
+                        int newr = cor[0] + dr[i];
+                        int newc = cor[1] + dc[i];
+                        if (newr < 0 || newr >= m || newc < 0 || newc >= n) {
+                            continue;
+                        }
+                        if (grid[newr][newc] == 1 && !visited[newr][newc]) {
+                            q.offer(new int[]{newr, newc});
+                            visited[newr][newc] = true;
+                            uni.append(newr - r).append(newc - c);
+                            // System.out.println((newr - r) + " " + (newc - c));
+                        }
+                    }
+                }
+                uniset.add(uni.toString());
+            }
+        }
+        return uniset.size();
+    }
+
 }
