@@ -3580,4 +3580,22 @@ public class Solutions {
         return uniset.size();
     }
 
+    public int kthSmallest(TreeNode root, int k) {
+        List<TreeNode> res = inOrder(root);
+        return res.get(k - 1).val;
+    }
+
+    private List<TreeNode> inOrder(TreeNode root) {
+        List<TreeNode> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        List<TreeNode> left = inOrder(root.left);
+        res.addAll(left);
+        res.add(root);
+        List<TreeNode> right = inOrder(root.right);
+        res.addAll(right);
+        return res;
+    }
+
 }
