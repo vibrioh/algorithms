@@ -3598,4 +3598,68 @@ public class Solutions {
         return res;
     }
 
+    // Definition for a Node.
+    class Node {
+        public int val;
+        public Node left;
+        public Node right;
+
+        public Node() {
+        }
+
+        public Node(int _val, Node _left, Node _right) {
+            val = _val;
+            left = _left;
+            right = _right;
+        }
+    }
+
+    ;
+
+    public Node treeToDoublyList(Node root) {
+        if (root == null) {
+            return null;
+        }
+        Node cycL = treeToDoublyList(root.left);
+        Node cycR = treeToDoublyList(root.right);
+
+        Node res;
+
+        if (cycL != null && cycR != null) {
+            Node minL = cycL;
+            Node minR = cycR;
+            Node maxL = cycL.left;
+            Node maxR = cycR.left;
+            maxL.right = root;
+            minL.left = maxR;
+            maxR.right = minL;
+            minR.left = root;
+            root.left = maxL;
+            root.right = minR;
+            res = minL;
+        } else if (cycR != null) {
+            Node minR = cycR;
+            Node maxR = cycR.left;
+            root.left = maxR;
+            maxR.right = root;
+            minR.left = root;
+            root.right = minR;
+            res = root;
+        } else if (cycL != null) {
+            Node minL = cycL;
+            Node maxL = cycL.left;
+            maxL.right = root;
+            minL.left = root;
+            root.left = maxL;
+            root.right = minL;
+            res = minL;
+        } else {
+            root.left = root;
+            root.right = root;
+            res = root;
+        }
+        return res;
+
+    }
+
 }
