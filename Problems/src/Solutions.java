@@ -3715,5 +3715,53 @@ public class Solutions {
         }
         return cash;
     }
+
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0) {
+            return false;
+        }
+        int m = board.length;
+        int n = board[0].length;
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                boolean[][] visited = new boolean[m][n];
+                visited[r][c] = true;
+                if (dfsWS(board, word, 0, visited, r, c)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean dfsWS(char[][] board, String word, int idx, boolean[][] visited, int r, int c) {
+
+        if (board[r][c] != word.charAt(idx)) {
+            return false;
+        }
+
+        if (idx == word.length() - 1) {
+            return true;
+        }
+
+        int[] dr = new int[]{-1, 1, 0, 0};
+        int[] dc = new int[]{0, 0, -1, 1};
+        for (int i = 0; i < 4; i++) {
+            int newr = r + dr[i];
+            int newc = c + dc[i];
+            if (newr < 0 || newr >= board.length || newc < 0 || newc >= board[0].length) {
+                continue;
+            }
+            if (visited[newr][newc]) {
+                continue;
+            }
+            visited[newr][newc] = true;
+            if (dfsWS(board, word, idx + 1, visited, newr, newc)) {
+                return true;
+            }
+            visited[newr][newc] = false;
+        }
+        return false;
+    }
 }
 
