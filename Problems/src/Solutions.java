@@ -3660,7 +3660,7 @@ public class Solutions {
 
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbersII(ListNode l1, ListNode l2) {
         l1 = reverseLinkedList(l1);
         l2 = reverseLinkedList(l2);
         int carry = 0;
