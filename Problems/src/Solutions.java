@@ -3763,5 +3763,25 @@ public class Solutions {
         }
         return false;
     }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+
+        int n = nums.length;
+        int[] res = new int[n - k + 1];
+        Arrays.fill(res, Integer.MIN_VALUE);
+        for (int i = 0; i < n; i++) {
+            for (int j = i - k + 1; j <= i; j++) {
+                if (j >= 0 && j < n - k + 1) {
+                    res[j] = Math.max(res[j], nums[i]);
+                }
+            }
+        }
+        return res;
+    }
+
+
 }
 
