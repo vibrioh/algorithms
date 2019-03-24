@@ -3783,5 +3783,35 @@ public class Solutions {
     }
 
 
+    public int[] maxSlidingWindowM2(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+        if (k == 1) {
+            return nums;
+        }
+        int n = nums.length;
+        int[] res = new int[n - k + 1];
+        Deque<Integer> q = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            cleanDeque(q, i, k, nums);
+            q.offerLast(i);
+            if (i - k + 1 >= 0) {
+                res[i - k + 1] = nums[q.peekFirst()];
+            }
+        }
+        return res;
+    }
+
+    private void cleanDeque(Deque<Integer> q, int i, int k, int[] nums) {
+        if (!q.isEmpty() && q.peekFirst() == i - k) {
+            q.pollFirst();
+        }
+        while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
+            q.pollLast();
+        }
+    }
+
+
 }
 
