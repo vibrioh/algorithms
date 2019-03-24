@@ -3812,6 +3812,38 @@ public class Solutions {
         }
     }
 
+    public int[] maxSlidingWindowM3(int[] nums, int k) {
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+        if (k == 1) {
+            return nums;
+        }
+        int n = nums.length;
+        int[] res = new int[n - k + 1];
+        int[] left = new int[n];
+        int[] right = new int[n];
+        for (int i = 0; i < n; i++) {
+            left[i] = nums[i];
+            right[i] = nums[i];
+        }
+        for (int i = 1; i < n; i++) {
+            int j = n - i - 1;
+            // block first % k == 0
+            if (i % k != 0) {
+                left[i] = Math.max(nums[i], left[i - 1]);
+            }
+            // block end + 1 is block first
+            if ((j + 1) % k != 0) {
+                right[j] = Math.max(nums[j], right[j + 1]);
+            }
+        }
+        for (int i = 0; i < n - k + 1; i++) {
+            res[i] = Math.max(right[i], left[i + k - 1]);
+        }
+        return res;
+    }
+
 
 }
 
