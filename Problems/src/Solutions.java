@@ -3860,6 +3860,63 @@ public class Solutions {
         return res;
     }
 
+    public int maxProfit(int k, int[] prices) {
+        if (prices == null || prices.length == 0 || k < 1) {
+            return 0;
+        }
+        int n = prices.length;
+        int res = 0;
+        if (k >= n / 2) {
+            for (int i = 1; i < n; i++) {
+                if (prices[i] > prices[i - 1]) {
+                    res += prices[i] - prices[i - 1];
+                }
+            }
+            return res;
+        }
+        int[][] dpCash = new int[k + 1][n];
+        for (int i = 1; i <= k; i++) {
+            // every round!
+            int hold = -prices[0];
+            for (int j = 1; j < n; j++) {
+                dpCash[i][j] = Math.max(dpCash[i][j - 1], prices[j] + hold);
+                hold = Math.max(hold, dpCash[i - 1][j - 1] - prices[j]);
+            }
+        }
+        return dpCash[k][n - 1];
+    }
+
+    int preS = 0;
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || inorder == null || preorder.length == 0 || inorder.length == 0) {
+            return null;
+        }
+        Map<Integer, Integer> inValIdx = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            inValIdx.put(inorder[i], i);
+        }
+        return buildTreeHelper(preorder, inorder, 0, inorder.length - 1, inValIdx);
+
+    }
+
+    private TreeNode buildTreeHelper(int[] preorder, int[] inorder, int inS, int inE, Map<Integer, Integer> inValIdx) {
+        if (inS == inE) {
+            return new TreeNode(inorder[inS]);
+        }
+        int currRootIdx = inValIdx.get(preorder[preS]);
+        TreeNode currNode = new TreeNode(inorder[currRootIdx]);
+        if (currRootIdx > inS) {
+            preS++;
+            currNode.left = buildTreeHelper(preorder, inorder, inS, currRootIdx - 1, inValIdx);
+        }
+        if (currRootIdx < inE) {
+            preS++;
+            currNode.right = buildTreeHelper(preorder, inorder, currRootIdx + 1, inE, inValIdx);
+        }
+        return currNode;
+    }
+
 
 }
 
