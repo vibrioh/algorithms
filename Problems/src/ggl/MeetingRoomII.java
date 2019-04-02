@@ -22,7 +22,7 @@ Space Complexity: O(N)O(N) because we construct the min-heap and that can contai
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.PriorityQueue;Definition for an interval.
+import java.util.PriorityQueue;
 
 class Interval {
     int start;
