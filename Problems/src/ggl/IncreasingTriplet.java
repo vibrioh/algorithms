@@ -2,6 +2,8 @@ package ggl;
 
 /*
 只有同时大于前面两个数才是连续三个升序，最前面的keep最小，中间的keep当前最大
+
+从左到右过array，用两个变量存第一小和第二小的数（初始最大值），更新尽量小的数，若同时遇到第三小的数，则为true
  */
 public class IncreasingTriplet {
     public boolean increasingTriplet(int[] nums) {
