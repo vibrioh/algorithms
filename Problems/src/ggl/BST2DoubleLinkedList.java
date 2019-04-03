@@ -7,6 +7,8 @@ step1: inorder tranversal by recursion to connect the original BST
 step2: connect the head and tail to make it circular
 
 Tips: Using dummy node to handle corner case
+
+开始dummy当prev留住head，最后prev是tail。其中prev可当做class变量
  */
 
 
