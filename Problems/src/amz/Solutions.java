@@ -152,4 +152,41 @@ public class Solutions {
         }
         return res;
     }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> mp = new HashMap<>();  // to save the node pre for other nodes
+        int[] indegree = new int[numCourses];
+        for (int[] edge : prerequisites) {
+            int from = edge[1];
+            int to = edge[0];
+            List<Integer> children = mp.getOrDefault(from, new ArrayList<Integer>());
+            children.add(to);
+            mp.put(from, children);
+            indegree[to] += 1;
+        }
+        Queue<Integer> q = new LinkedList<>();
+        int finished = 0;
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                q.offer(i);
+            }
+        }
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            // System.out.println("curr " + curr);
+            finished++;
+            // System.out.println(finished);
+            if (!mp.containsKey(curr)) {
+                // System.out.println("no");
+                continue;
+            }
+            for (Integer i : mp.get(curr)) {
+                if (--indegree[i] == 0) {
+                    q.offer(i);
+                }
+            }
+        }
+
+        return finished == numCourses;
+    }
 }
