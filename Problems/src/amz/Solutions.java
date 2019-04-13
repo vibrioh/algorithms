@@ -137,4 +137,19 @@ public class Solutions {
         }
         return 0;
     }
+
+    public int flyPathRoute(int[] trees) {
+        if (trees == null || trees.length == 0) {
+            return 0;
+        }
+        int res = 0;
+        for (int i = 0; i < trees.length; i++) {
+            for (int j = i + 1; j < trees.length && trees[j] <= trees[i]; j++) {
+                if (trees[j] == trees[i]) {
+                    res += 2;
+                }
+            }
+        }
+        return res;
+    }
 }
