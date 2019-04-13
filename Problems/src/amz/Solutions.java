@@ -75,4 +75,66 @@ public class Solutions {
         }
         return len;
     }
+
+
+    public String[] reorderLogFiles(String[] logs) {
+        Arrays.sort(logs, (log1, log2) -> {
+            String[] split1 = log1.split(" ", 2);
+            String[] split2 = log2.split(" ", 2);
+            boolean isDigit1 = Character.isDigit(split1[1].charAt(0));
+            boolean isDigit2 = Character.isDigit(split2[1].charAt(0));
+            if (!isDigit1 && !isDigit2) {
+                int cmp = split1[1].compareTo(split2[1]);
+                if (cmp != 0) return cmp;
+                return split1[0].compareTo(split2[0]);
+            }
+            return isDigit1 ? (isDigit2 ? 0 : 1) : -1;
+        });
+        return logs;
+    }
+
+
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Map<String, List<String>> mp = new HashMap<>();
+        Set<String> visited = new HashSet<>();
+        for (String word : wordList) {
+            for (int i = 0; i < word.length(); i++) {
+                String star = word.substring(0, i) + "*" + word.substring(i + 1, word.length());
+                List<String> words = mp.getOrDefault(star, new ArrayList<String>());
+                words.add(word);
+                // System.out.println(star);
+                mp.put(star, words);
+            }
+        }
+        Queue<String> q = new LinkedList<>();
+        q.offer(beginWord);
+        int level = 1;
+        while (!q.isEmpty()) {
+            int n = q.size();
+            while (n > 0) {
+                String curr = q.poll();
+                n--;
+                for (int i = 0; i < curr.length(); i++) {
+                    String cstar = curr.substring(0, i) + "*" + curr.substring(i + 1, curr.length());
+
+                    if (!visited.contains(cstar)) {
+                        // System.out.println("2 " + cstar);
+                        visited.add(cstar);
+                        if (!mp.containsKey(cstar)) {
+                            continue;
+                        }
+                        for (String candidate : mp.get(cstar)) {
+                            // System.out.println("3 " + candidate);
+                            if (candidate.equals(endWord)) {
+                                return level + 1;
+                            }
+                            q.offer(candidate);
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
 }
