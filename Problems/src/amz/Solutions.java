@@ -224,4 +224,57 @@ public class Solutions {
         }
         return dp[s.length()];
     }
+
+    public int lengthOfLongestSubstring(String s) {
+        int len_max = 0;
+        int index_start_curr = 0;
+        Map<Character, Integer> charMap = new HashMap<>();
+        char[] charList = s.toCharArray();
+        for (int i = 0; i < charList.length; i++) {
+            char char_curr = charList[i];
+            if (charMap.containsKey(char_curr) && charMap.get(char_curr) >= index_start_curr) {
+                index_start_curr = charMap.get(char_curr) + 1;
+            }
+            charMap.put(char_curr, i);
+            len_max = Math.max(len_max, i - index_start_curr + 1);
+        }
+        return len_max;
+    }
+
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        if (maze == null || maze.length == 0) {
+            return false;
+        }
+        int m = maze.length;
+        int n = maze[0].length;
+        boolean[][] visited = new boolean[m][n];
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(start);
+        visited[start[0]][start[1]] = true;
+        int[] dr = new int[]{0, 0, 1, -1};
+        int[] dc = new int[]{1, -1, 0, 0};
+        while (!q.isEmpty()) {
+            int[] curr = q.poll();
+            if (curr[0] == destination[0] && curr[1] == destination[1]) {
+                return true;
+            }
+            for (int i = 0; i < 4; i++) {
+                int r = curr[0] + dr[i];
+                int c = curr[1] + dc[i];
+
+                // Don't check && !visited[r][c]  here, you will let r, c stop at middle before end to wall coner
+                while (r >= 0 && r < m && c >= 0 && c < n && maze[r][c] == 0) {
+                    r += dr[i];
+                    c += dc[i];
+                }
+                r -= dr[i];
+                c -= dc[i];
+                if (!visited[r][c]) {
+                    q.offer(new int[]{r, c});
+                    visited[r][c] = true;
+                }
+            }
+        }
+        return false;
+    }
 }
