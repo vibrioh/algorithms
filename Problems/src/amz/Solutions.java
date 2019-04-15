@@ -27,7 +27,7 @@ public class Solutions {
             int y = point[1];
             int d = (int) (Math.pow(x, 2) + Math.pow(y, 2));
             q.offer(d);
-            mp.put(d, mp.getOrDefault(d, new ArrayList<int[]>()));
+            mp.putIfAbsent(d, new ArrayList<int[]>());
             // remember, list add 之后返回的事boolean！！！！！！！！！
             mp.get(d).add(point);
         }
