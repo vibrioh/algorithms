@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Random;
 
 /*
+
+https://leetcode.com/articles/encode-and-decode-tinyurl/
+
 Performance Analysis
 
 The number of URLs that can be encoded is quite large in this case, nearly of the order (10+26*2)^6(10+26∗2)
