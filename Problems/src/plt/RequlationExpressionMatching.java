@@ -21,7 +21,6 @@ public class RequlationExpressionMatching {
                     } else {
                         //3 different case, 0 match, 1 match, multiple match
                         dp[i][j] = dp[i - 1][j] || dp[i][j - 2] || dp[i - 1][j - 2]; //dp[i][j-1] is the same
-
                     }
                 } else if (sc == pc || pc == '.') {
                     dp[i][j] = dp[i - 1][j - 1];
