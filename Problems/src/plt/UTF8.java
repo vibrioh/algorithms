@@ -20,11 +20,13 @@ public class UTF8 {
         System.out.println(u.utf8str("11111000 10101010 10101010 10101010 10101010")); // false 5-byte
         System.out.println(u.utf8str(" 11010101 10010101 01010101 01010101  01010101   11110000 10101010 10101010 10101010")); // true combine-byte
         System.out.println(u.utf8str(" 11010101 10010101 01010101 01010101  01010101   11110000 10101010 11010101 10010101 10101010 10101010")); // false insert-byte
+        System.out.println(u.utf8str("")); // true ?
+        System.out.println(u.utf8str(" ")); // true ?
     }
 
     public boolean utf8str(String text) {
         // ^ start $ end [] select from + multiple
-        if (!text.matches("^[01 ]+$")) {
+        if (!text.matches("^[01 ]+$") && !text.equals("")) {
             return false;
         }
         int num = 0;
