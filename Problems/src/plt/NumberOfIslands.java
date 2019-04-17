@@ -3,6 +3,7 @@ package plt;
 import java.util.LinkedList;
 import java.util.Queue;
 
+// Time M X N  Space M X N
 public class NumberOfIslands {
     public int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) {
