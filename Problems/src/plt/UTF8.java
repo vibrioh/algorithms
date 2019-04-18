@@ -1,6 +1,8 @@
 package plt;
 
 
+import java.util.Scanner;
+
 public class UTF8 {
     public static void main(String[] args) {
         UTF8 u = new UTF8();
@@ -8,6 +10,13 @@ public class UTF8 {
 //        System.out.println(u.validUtf8ORIstr(new int[]{235, 140, 4})); // false
 //        System.out.println(u.validUtf8bit(new int[]{123, 345, 33, 2, 3})); // true
 //        System.out.println(u.validUtf8bit(new int[]{235, 140, 4})); // false
+
+        Scanner scan = new Scanner(System.in);
+//        String curr = scan.next();  // only string escape any white space
+        String curr = scan.nextLine();  // the whole strings, include white spaces
+        scan.hasNext(); // check if string left
+        System.out.println("curr is: |" + curr + "|");
+        scan.close();
 
         System.out.println(u.utf8str("12345678")); // false none 0 1 or space
         System.out.println(u.utf8str("000000000")); // false too long
