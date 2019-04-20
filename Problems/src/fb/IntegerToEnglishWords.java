@@ -1,4 +1,4 @@
-package plt;
+package fb;
 
 public class IntegerToEnglishWords {
     public static String[] IN_TWENTY = new String[]{
