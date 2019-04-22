@@ -17,10 +17,10 @@ public class ProductOfArrayExceptSelf {
             res[i] = res[i - 1] * nums[i - 1];
         }
 
-        int surfixProduct = nums[len - 1]; // surfixProdcut without itself
+        int suffixProduct = nums[len - 1]; // surfixProdcut without itself
         for (int i = len - 2; i >= 0; i--) {
-            res[i] *= surfixProduct;
-            surfixProduct *= nums[i];
+            res[i] *= suffixProduct;
+            suffixProduct *= nums[i];
         }
 
         return res;
