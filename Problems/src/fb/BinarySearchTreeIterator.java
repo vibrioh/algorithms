@@ -38,4 +38,10 @@ public class BinarySearchTreeIterator {
             return !leftBranch.isEmpty();
         }
     }
+
+    class TreeNode {
+        TreeNode left;
+        TreeNode right;
+        int val;
+    }
 }

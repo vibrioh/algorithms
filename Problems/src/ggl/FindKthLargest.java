@@ -38,6 +38,7 @@ public class FindKthLargest {
 
 
         public int partition(int left, int right, int pivot_index) {
+            // this is important, because if you swap, you may change the idx for value, so get that value first!!!!!
             int pivot = this.nums[pivot_index];
             // 1. move pivot to end
             swap(pivot_index, right);
