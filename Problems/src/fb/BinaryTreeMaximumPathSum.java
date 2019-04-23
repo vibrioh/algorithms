@@ -14,6 +14,7 @@ public class BinaryTreeMaximumPathSum {
         if (root == null) {
             return 0;
         }
+        // never be smaller
         int left = Math.max(0, maxRootPath(root.left));
         int right = Math.max(0, maxRootPath(root.right));
         max = Math.max(left + right + root.val, max);
