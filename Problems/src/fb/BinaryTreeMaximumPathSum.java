@@ -3,37 +3,21 @@ package fb;
 import javax.swing.tree.TreeNode;
 
 public class BinaryTreeMaximumPathSum {
-    int max = Integer.MIN_VALUE;
+    private int max = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
-        maxThroughRoot(root);
+        maxRootPath(root);
         return max;
     }
 
-    private Integer maxThroughRoot(TreeNode root) {
+    private int maxRootPath(TreeNode root) {
         if (root == null) {
-            return null;
+            return 0;
         }
-        Integer left = maxThroughRoot(root.left);
-        Integer right = maxThroughRoot(root.right);
-        int rootMax, currMax;
-        if (left == null && right == null) {
-            rootMax = root.val;
-            currMax = root.val;
-        } else if (left == null) {
-            rootMax = Math.max(root.val, root.val + right);
-            currMax = Math.max(rootMax, right);
-        } else if (right == null) {
-            rootMax = Math.max(root.val, root.val + left);
-            currMax = Math.max(rootMax, left);
-        } else {
-            int childMax = Math.max(left, right);
-            rootMax = Math.max(root.val, childMax + root.val);
-            currMax = Math.max(childMax, rootMax);
-            currMax = Math.max(currMax, root.val + left + right);
-        }
-        max = Math.max(max, currMax);
-        return rootMax;
+        int left = Math.max(0, maxRootPath(root.left));
+        int right = Math.max(0, maxRootPath(root.right));
+        max = Math.max(left + right + root.val, max);
+        return Math.max(root.val + left, root.val + right);
     }
 
     class TreeNode {
