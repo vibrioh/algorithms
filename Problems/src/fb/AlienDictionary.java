@@ -2,7 +2,7 @@ package fb;
 
 import java.util.*;
 
-public class AlianDictionary {
+public class AlienDictionary {
     public String alienOrder(String[] words) {
         Map<Character, Set<Character>> graph = constructGraph(words);
         return topologicalSorting(graph);
