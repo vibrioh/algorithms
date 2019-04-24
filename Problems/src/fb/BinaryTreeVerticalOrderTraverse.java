@@ -1,26 +1,54 @@
 package fb;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class BinaryTreeVerticalOrderTraverse {
-    // DFS seems not working because of the order to add into the same list of vertical level
     public List<List<Integer>> verticalOrder(TreeNode root) {
-        Map<Integer, List<Integer>> mp = new TreeMap<>();
-        traverse(root, 0, mp);
-        return new ArrayList<>(mp.values());
-    }
-
-    private void traverse(TreeNode root, int idx, Map<Integer, List<Integer>> mp) {
+        List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
-            return;
+            return res;
         }
-        mp.putIfAbsent(idx, new ArrayList<Integer>());
-        mp.get(idx).add(root.val);
-        traverse(root.left, idx - 1, mp);
-        traverse(root.right, idx + 1, mp);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        List<Integer> start = new ArrayList<>();
+        start.add(root.val);
+        Map<TreeNode, List<Integer>> mp = new HashMap<>();
+        mp.put(root, start);
+        res.add(start);
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            System.out.println(node.val);
+            List list = mp.get(node);
+            int idx = res.indexOf(list);
+            int len = res.size();
+
+            if (node.left != null) {
+                if (idx == 0) {
+                    List<Integer> tail = new ArrayList<>();
+                    tail.add(node.left.val);
+                    mp.put(node.left, tail);
+                    res.add(0, tail);
+                } else {
+                    System.out.println(idx);
+                    res.get(idx - 1).add(node.left.val);
+                    mp.put(node.left, res.get(idx - 1));
+                }
+                q.offer(node.left);
+            }
+            if (node.right != null) {
+                if (idx == len - 1) {
+                    List<Integer> head = new ArrayList<>();
+                    head.add(node.right.val);
+                    mp.put(node.right, head);
+                    res.add(head);
+                } else {
+                    res.get(res.indexOf(list) + 1).add(node.right.val);
+                    mp.put(node.right, res.get(res.indexOf(list) + 1));
+                }
+                q.offer(node.right);
+            }
+        }
+        return res;
     }
 
     class TreeNode {
