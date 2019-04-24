@@ -3,52 +3,50 @@ package fb;
 import java.util.*;
 
 public class BinaryTreeVerticalOrderTraverse {
+    // put the position of the list and the list in the map, use q to dynamic track node and position
+
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if (root == null) {
             return res;
         }
+
+        Map<Integer, ArrayList<Integer>> map = new HashMap<>();
         Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        List<Integer> start = new ArrayList<>();
-        start.add(root.val);
-        Map<TreeNode, List<Integer>> mp = new HashMap<>();
-        mp.put(root, start);
-        res.add(start);
+        Queue<Integer> cols = new LinkedList<>();
+
+        q.add(root);
+        cols.add(0);
+
+        int min = 0;
+        int max = 0;
+
         while (!q.isEmpty()) {
             TreeNode node = q.poll();
-            System.out.println(node.val);
-            List list = mp.get(node);
-            int idx = res.indexOf(list);
-            int len = res.size();
+            int col = cols.poll();
+
+            map.putIfAbsent(col, new ArrayList<Integer>());
+            map.get(col).add(node.val);
 
             if (node.left != null) {
-                if (idx == 0) {
-                    List<Integer> tail = new ArrayList<>();
-                    tail.add(node.left.val);
-                    mp.put(node.left, tail);
-                    res.add(0, tail);
-                } else {
-                    System.out.println(idx);
-                    res.get(idx - 1).add(node.left.val);
-                    mp.put(node.left, res.get(idx - 1));
-                }
-                q.offer(node.left);
+                q.add(node.left);
+                cols.add(col - 1);
+                min = Math.min(min, col - 1);
             }
+
             if (node.right != null) {
-                if (idx == len - 1) {
-                    List<Integer> head = new ArrayList<>();
-                    head.add(node.right.val);
-                    mp.put(node.right, head);
-                    res.add(head);
-                } else {
-                    res.get(res.indexOf(list) + 1).add(node.right.val);
-                    mp.put(node.right, res.get(res.indexOf(list) + 1));
-                }
-                q.offer(node.right);
+                q.add(node.right);
+                cols.add(col + 1);
+                max = Math.max(max, col + 1);
             }
         }
+
+        for (int i = min; i <= max; i++) {
+            res.add(map.get(i));
+        }
+
         return res;
+
     }
 
     class TreeNode {
