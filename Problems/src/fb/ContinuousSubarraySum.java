@@ -3,6 +3,11 @@ package fb;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+if a - b = n * k  29 - 23 = 1 * 6
+then a % k == b % k  29 % 6 == 23 % 6 == 5
+ */
+
 public class ContinuousSubarraySum {
     public boolean checkSubarraySum(int[] nums, int k) {
         if (nums == null) {
