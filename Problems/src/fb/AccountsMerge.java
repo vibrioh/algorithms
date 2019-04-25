@@ -8,8 +8,8 @@ public class AccountsMerge {
     public List<List<String>> accountsMergeUF(List<List<String>> accounts) {
         // By confirmation of the size
         DSU dsu = new DSU(10001);
-        Map<String, String> emailToName = new HashMap();
-        Map<String, Integer> emailToID = new HashMap();
+        Map<String, String> emailToName = new HashMap<>();
+        Map<String, Integer> emailToID = new HashMap<>();
         int id = 0;
         for (List<String> account : accounts) {
             String name = "";
