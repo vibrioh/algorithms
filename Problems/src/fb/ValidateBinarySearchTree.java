@@ -1,6 +1,5 @@
 package fb;
 
-import javax.swing.tree.TreeNode;
 
 public class ValidateBinarySearchTree {
     public boolean isValidBST(TreeNode root) {
@@ -26,5 +25,11 @@ public class ValidateBinarySearchTree {
             }
         }
         return isValidBSTdfs(root.left, min, root.val) && isValidBSTdfs(root.right, root.val, max);
+    }
+
+    class TreeNode {
+        TreeNode left;
+        TreeNode right;
+        int val;
     }
 }
