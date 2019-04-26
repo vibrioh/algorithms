@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class WallsAndGates {
+    /*
+    The key is start from 0, all 0 in q, then all 1 in q, then 2 in q, then all INF become distances, because it's form 0 to n, level by level, so it is the shortest
+     */
     public void wallsAndGates(int[][] rooms) {
         if (rooms == null || rooms.length == 0) {
             return;
@@ -12,45 +15,24 @@ public class WallsAndGates {
         int n = rooms[0].length;
         int[] dr = new int[]{-1, 1, 0, 0};
         int[] dc = new int[]{0, 0, -1, 1};
+        Queue<int[]> q = new LinkedList<>();
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < n; c++) {
-                if (rooms[r][c] != 0) {
+                if (rooms[r][c] == 0) {
+                    q.offer(new int[]{r, c});
+                }
+            }
+        }
+        while (!q.isEmpty()) {
+            int[] cor = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int nr = cor[0] + dr[i];
+                int nc = cor[1] + dc[i];
+                if (nr < 0 || nr >= m || nc < 0 || nc >= n || rooms[nr][nc] != Integer.MAX_VALUE) {
                     continue;
                 }
-                Queue<int[]> q = new LinkedList<>();
-                boolean[][] visited = new boolean[m][n];
-                q.offer(new int[]{r, c});
-                visited[r][c] = true;
-                int level = 0;
-                while(!q.isEmpty()) {
-                    level++;
-                    int s = q.size();
-                    while (s > 0) {
-                        int[] cor = q.poll();
-                        s--;
-                        int rcurr = cor[0];
-                        int ccurr = cor[1];
-                        // System.out.println(rcurr + " " +  ccurr);
-                        for (int i = 0; i < 4; i++) {
-                            int rn = rcurr + dr[i];
-                            int cn = ccurr + dc[i];
-                            if (rn < 0 || rn >= m || cn < 0 || cn >= n || visited[rn][cn] || rooms[rn][cn] == -1 || rooms[rn][cn] == 0) {
-                                continue;
-                            }
-                            q.offer(new int[]{rn, cn});
-                            visited[rn][cn] = true;
-                            if (rooms[rn][cn] == Integer.MAX_VALUE) {
-                                // System.out.println(rn + " " + cn + "rooms[rn][cn]" + " " + level);
-                                rooms[rn][cn] = level;
-                                continue;
-                            }
-                            // System.out.println("old" + rooms[rn][cn]);
-                            rooms[rn][cn] = Math.min(level, rooms[rn][cn]);
-                            // System.out.println(rooms[rn][cn]);
-                        }
-                    }
-
-                }
+                rooms[nr][nc] = rooms[cor[0]][cor[1]] + 1;
+                q.offer(new int[]{nr, nc});
             }
         }
         return;
