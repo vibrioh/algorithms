@@ -11,7 +11,38 @@ Space complexity : \mathcal{O}(k)O(k) since additional space is used only for an
 
 public class LongestSubstringKDistinctCharacters {
 
+    // use the template of string sliding window, need to think about how to make correct update condition
     public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        if (s == null) {
+            return 0;
+        }
+        char[] charS = s.toCharArray();
+        int[] counts = new int[256];
+        int j = 0;
+        int max = 0;
+        int numUni = 0;
+        for (int i = 0; i < charS.length; i++) {
+            while (j < charS.length && numUni <= k) {
+                char cAdd = charS[j];
+                if (counts[cAdd] == 0) {
+                    numUni++;
+                }
+                if (numUni <= k) {
+                    max = Math.max(max, j - i + 1);
+                }
+                counts[cAdd]++;
+                j++;
+            }
+            char cDel = charS[i];
+            counts[cDel]--;
+            if (counts[cDel] == 0) {
+                numUni--;
+            }
+        }
+        return max;
+    }
+
+    public int lengthOfLongestSubstringKDistinctMap(String s, int k) {
         int n = s.length();
         if (n * k == 0) return 0;
 
@@ -53,7 +84,7 @@ public class LongestSubstringKDistinctCharacters {
         for (int j = 0; j < s.length(); j++) {
             if (count[s.charAt(j)]++ == 0) num++;
             if (num > k) {
-                while (--count[s.charAt(i++)] > 0);
+                while (--count[s.charAt(i++)] > 0) ;
                 num--;
             }
             res = Math.max(res, j - i + 1);
