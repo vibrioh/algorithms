@@ -1,7 +1,7 @@
 package fb;
 
 public class IntegerToEnglishWords {
-    public static String[] IN_TWENTY = new String[]{
+    private String[] IN_TWENTY = new String[]{
             "",
             "One",
             "Two",
@@ -24,7 +24,7 @@ public class IntegerToEnglishWords {
             "Nineteen"
     };
 
-    public static String[] IN_HUNDRED = new String[]{
+    private String[] IN_HUNDRED = new String[]{
             "",
             "Ten",
             "Twenty",
@@ -37,7 +37,7 @@ public class IntegerToEnglishWords {
             "Ninety"
     };
 
-    public static String[] OVER_THOUSAND = new String[]{
+    private String[] OVER_THOUSAND = new String[]{
             "",
             "Thousand",
             "Million",
@@ -52,12 +52,14 @@ public class IntegerToEnglishWords {
         int i = 0;
         while (num > 0) {
             String pre = helper(num % 1000);
+            // check whether pre is "" is important, or you will add OVER_THOUSAND to nothing
             if (pre != "") {
                 res = pre + " " + OVER_THOUSAND[i] + " " + res;
             }
             num /= 1000;
             i++;
         }
+        // trim is important to get rid of redundant spaces
         return res.trim();
     }
 
@@ -70,6 +72,7 @@ public class IntegerToEnglishWords {
         } else {
             s = IN_TWENTY[n / 100] + " Hundred " + helper(n % 100);
         }
+        // trim is important to get rid of redundant spaces, , and keep "" to be ""
         return s.trim();
     }
 }
