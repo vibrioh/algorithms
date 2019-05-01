@@ -50,12 +50,12 @@ public class CsvParser {
                 sb = new StringBuilder();
                 continue;
             }
-            // not in quote, stop of the line, add word, add line (deep copy by new) ,renew word, renew line
+            // not in quote, stop of the line, add word, add line (because the refer line is renewed ,the old line can be added directly) ,renew word, renew line
             if (!quote && c == '|') {
                 line.add(sb.toString());
                 sb = new StringBuilder();
 //                System.out.println("line: " + line);
-                res.add(new ArrayList<>(line));
+                res.add(line);
                 line = new ArrayList<>();
                 continue;
             }
