@@ -1,7 +1,7 @@
 package plt;
 
-public class QuadTree {
-    // Definition for a QuadTree node.
+public class RegionQuadTree {
+    // Definition for a RegionQuadTree node.
     class Node {
         public boolean val;
         public boolean isLeaf;
