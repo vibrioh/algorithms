@@ -1,5 +1,6 @@
 package plt;
 
+import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeMap;
 
@@ -11,11 +12,16 @@ public class NumberOfAtoms {
 
         int i = 0, len = formula.length();
         while (i < len) {
+            System.out.println("TreeMap: " + map);
+            System.out.println("Stack: " + stack + "\n");
+            // meet (, push in whatever now in map; meet ) , update curr map with val and stack up map (if not empty)
             if (formula.charAt(i) == '(') {
+                // map放进去
                 stack.push(map);
                 map = new TreeMap<>();
                 i++;
             } else if (formula.charAt(i) == ')') {
+                // map吐出来
                 int val = 0;
                 i++;
                 while (i < formula.length() && Character.isDigit(formula.charAt(i))) {
@@ -32,6 +38,8 @@ public class NumberOfAtoms {
                     }
                 }
             } else {
+                // map 更新
+                // get the atom, get the val, update curr map
                 int j = i + 1;
                 while (j < formula.length() && Character.isLowerCase(formula.charAt(j))) {
                     j++;
@@ -49,6 +57,9 @@ public class NumberOfAtoms {
             }
         }
 
+        System.out.println("End TreeMap: " + map);
+        System.out.println("End Stack: " + stack + "\n");
+
         StringBuilder sb = new StringBuilder();
 
         for (String atom : map.keySet()) {
@@ -56,5 +67,14 @@ public class NumberOfAtoms {
             sb.append(map.get(atom) == 1 ? "" : map.get(atom));
         }
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        NumberOfAtoms s = new NumberOfAtoms();
+        Scanner scan = new Scanner(System.in);
+        while (scan.hasNext()) {
+            String n = scan.nextLine();
+            System.out.println(s.countOfAtoms(n));
+        }
     }
 }
