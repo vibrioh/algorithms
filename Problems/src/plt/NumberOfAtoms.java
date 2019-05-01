@@ -32,7 +32,6 @@ public class NumberOfAtoms {
                 if (!stack.isEmpty()) {
                     TreeMap<String, Integer> temp = map;
                     map = stack.pop();
-
                     for (String atom : temp.keySet()) {
                         map.put(atom, temp.get(atom) * val + map.getOrDefault(atom, 0));
                     }
