@@ -33,7 +33,9 @@ public class CsvParser {
             char c = s.charAt(i);
             // whenever meet escape, pass the next to sb
             if (c == '\\') {
+//                System.out.println("i   " + s.charAt(i));
                 i++;
+//                System.out.println("i++ " + s.charAt(i));
                 if (i < s.length()) {
                     sb.append(s.charAt(i));
                 }
@@ -41,6 +43,7 @@ public class CsvParser {
             }
             // after escape, whenever meet ", boolean reverse
             if (c == '"') {
+//                System.out.println("quote " + c + " " + quote);
                 quote = !quote;
                 continue;
             }
