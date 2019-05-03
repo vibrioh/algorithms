@@ -3,6 +3,8 @@ package ggl;
 import java.util.*;
 
 public class GuessTheWord {
+    // 先猜最不unique的， 即zeromatch最少的
+    // 再更新为何其matchnum想通的再猜
 
     class Master {
         public int guess(String word) {
