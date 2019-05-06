@@ -1,6 +1,12 @@
 package ggl;
 
 public class ExpressiveWords {
+    public int expressiveWords(String S, String[] words) {
+        int res = 0;
+        for (String W : words) if (check(S, W)) res++;
+        return res;
+    }
+
     public boolean check(String S, String W) {
         int n = S.length(), m = W.length(), i = 0, j = 0;
         for (int i2 = 0, j2 = 0; i < n && j < m; i = i2, j = j2) {
