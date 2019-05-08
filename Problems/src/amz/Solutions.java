@@ -54,6 +54,7 @@ public class Solutions {
             return "";
         }
         int start = 0, end = 0;
+        // start to moving center and get the len
         for (int i = 0; i < s.length(); i++) {
             int len1 = longestPalindromeAt(s, i, i);
             int len2 = longestPalindromeAt(s, i, i + 1);
