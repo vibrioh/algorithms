@@ -4,6 +4,7 @@ import java.util.*;
 
 public class BinaryTreeVerticalOrderTraverse {
     // put the position of the list and the list in the map, use q to dynamic track node and position
+    // 对于竖着的每一个node记录其colnumber， 用这个number map到这个number 下的所有val 最后从小到大的加入到其中
 
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
